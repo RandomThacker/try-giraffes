@@ -1,0 +1,15 @@
+.tools/
+node_modules/
+.next/
+dist/
+tmp/
+coverage/
+backend/uploads/
+
+.env
+.env.local
+.env.*.local
+
+*.log
+.DS_Store
+.neon

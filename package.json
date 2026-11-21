@@ -1,0 +1,13 @@
+{
+  "name": "try-giraffes",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix frontend run build",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "neon:env": "npx neon@latest env pull"
+  },
+  "dependencies": {
+    "@neon/config": "^1.14.6",
+    "@neon/env": "^2.1.9"
+  }
+}
