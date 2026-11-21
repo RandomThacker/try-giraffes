@@ -95,12 +95,12 @@ export function EditFeedbackQuestionsPage() {
   }
 
   return (
-    <div className="rounded-[18px] bg-white p-5 shadow-[0_8px_28px_rgba(45,50,90,0.06)] sm:p-7">
+    <div className="rounded-[18px] bg-app-surface p-5 shadow-[var(--app-shadow)] sm:p-7">
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <button
           type="button"
           onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-left text-[18px] font-semibold text-[#666CFF] sm:text-[20px]"
+          className="inline-flex items-center gap-2 text-left text-[18px] font-semibold text-brand sm:text-[20px]"
         >
           <NavIcon name="arrow-left" className="size-5 shrink-0" />
           Edit Questions
@@ -109,13 +109,13 @@ export function EditFeedbackQuestionsPage() {
           type="button"
           disabled={saving || loading}
           onClick={() => void onSubmit()}
-          className="rounded-[10px] bg-[#666CFF] px-4 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
+          className="rounded-[10px] bg-brand px-4 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
         >
           {saving ? "Saving..." : "Submit"}
         </button>
       </div>
 
-      {error ? <p className="mb-4 text-[13px] text-[#D14343]">{error}</p> : null}
+      {error ? <p className="mb-4 text-[13px] text-app-danger">{error}</p> : null}
       {loading ? (
         <div className="space-y-4">
           {Array.from({ length: 3 }).map((_, index) => (
@@ -125,13 +125,13 @@ export function EditFeedbackQuestionsPage() {
       ) : (
         <div className="space-y-5">
           {questions.map((question, index) => (
-            <div key={question.key} className="rounded-[14px] border border-[#EEF0F5] p-4">
+            <div key={question.key} className="rounded-[14px] border border-app-border-2 p-4">
               <div className="mb-3 flex items-center justify-between gap-3">
-                <p className="text-[14px] font-semibold text-[#2B2B38]">Question {index + 1}</p>
+                <p className="text-[14px] font-semibold text-app-fg">Question {index + 1}</p>
                 <button
                   type="button"
                   onClick={() => setQuestions((prev) => prev.filter((_, i) => i !== index))}
-                  className="text-[13px] text-[#D14343]"
+                  className="text-[13px] text-app-danger"
                 >
                   Remove
                 </button>
@@ -206,7 +206,7 @@ export function EditFeedbackQuestionsPage() {
                         ),
                       )
                     }
-                    className="text-[13px] font-medium text-[#666CFF]"
+                    className="text-[13px] font-medium text-brand"
                   >
                     + Add option
                   </button>
@@ -247,7 +247,7 @@ export function EditFeedbackQuestionsPage() {
           <button
             type="button"
             onClick={() => setQuestions((prev) => [...prev, emptyQuestion()])}
-            className="rounded-[10px] border border-dashed border-[#C9CCF5] px-4 py-3 text-[14px] font-medium text-[#666CFF]"
+            className="rounded-[10px] border border-dashed border-[#C9CCF5] px-4 py-3 text-[14px] font-medium text-brand"
           >
             + Add more
           </button>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Logo } from "@/components/brand/logo";
 import { NavIcon } from "@/components/dashboard/nav-icons";
 import { Sidebar } from "@/components/dashboard/sidebar";
+import { useTheme } from "@/components/theme/theme-provider";
 
 type MobileMoreSheetProps = {
   open: boolean;
@@ -11,6 +12,7 @@ type MobileMoreSheetProps = {
 };
 
 export function MobileMoreSheet({ open, onClose }: MobileMoreSheetProps) {
+  const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
   const [entered, setEntered] = useState(false);
 
@@ -47,20 +49,20 @@ export function MobileMoreSheet({ open, onClose }: MobileMoreSheetProps) {
       <button
         type="button"
         aria-label="Close menu"
-        className={`absolute inset-0 bg-[#1d1f2f]/40 transition-opacity duration-300 ${
+        className={`absolute inset-0 bg-[color:var(--app-overlay)] transition-opacity duration-300 ${
           entered ? "opacity-100" : "opacity-0"
         }`}
         onClick={onClose}
       />
       <div
-        className={`absolute inset-0 flex flex-col bg-[#F7F7F9] transition-transform duration-300 ease-out ${
+        className={`absolute inset-0 flex flex-col bg-app-sidebar transition-transform duration-300 ease-out ${
           entered ? "translate-y-0" : "translate-y-full"
         }`}
       >
-        <div className="flex items-center justify-between gap-3 border-b border-[#ECECF2] px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3">
+        <div className="flex items-center justify-between gap-3 border-b border-app-border px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3">
           <div className="min-w-0">
-            <Logo tone="brand" className="h-7 w-auto" />
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#9A9AA8]">
+            <Logo tone={theme === "dark" ? "light" : "brand"} className="h-7 w-auto" />
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-app-faint">
               Asset Management
             </p>
           </div>
@@ -68,7 +70,7 @@ export function MobileMoreSheet({ open, onClose }: MobileMoreSheetProps) {
             type="button"
             aria-label="Close"
             onClick={onClose}
-            className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-[#6E6E80] shadow-[0_4px_14px_rgba(30,35,70,0.08)]"
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-app-surface text-app-muted-2 shadow-[0_4px_14px_rgba(30,35,70,0.08)]"
           >
             <NavIcon name="close" className="size-5" />
           </button>

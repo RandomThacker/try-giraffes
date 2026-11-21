@@ -26,8 +26,8 @@ export function OutlinedInput({
 }: OutlinedInputProps) {
   const id = useId();
   return (
-    <div className={`relative rounded-[10px] border border-[#E0E0E0] bg-white px-3.5 pb-2.5 pt-2 ${className}`}>
-      <label htmlFor={id} className="absolute -top-2 left-3 bg-white px-1 text-[12px] text-[#9A9AA8]">
+    <div className={`relative rounded-[10px] border border-[#E0E0E0] bg-app-surface px-3.5 pb-2.5 pt-2 ${className}`}>
+      <label htmlFor={id} className="absolute -top-2 left-3 bg-app-surface px-1 text-[12px] text-app-faint">
         {label}
       </label>
       <div className="flex items-center gap-2">
@@ -38,7 +38,7 @@ export function OutlinedInput({
           readOnly={readOnly}
           placeholder={placeholder}
           onChange={(event) => onChange(event.target.value)}
-          className="w-full bg-transparent pt-1 text-[14px] text-[#2B2B38] outline-none"
+          className="w-full bg-transparent pt-1 text-[14px] text-app-fg outline-none"
         />
         {trailing}
       </div>
@@ -74,14 +74,14 @@ export function OutlinedSelect({
         type="button"
         id={id}
         onClick={() => onOpenChange?.(!isOpen)}
-        className="relative flex w-full items-center justify-between rounded-[10px] border border-[#E0E0E0] bg-white px-3.5 py-3 text-left"
+        className="relative flex w-full items-center justify-between rounded-[10px] border border-[#E0E0E0] bg-app-surface px-3.5 py-3 text-left"
       >
-        <span className="absolute -top-2 left-3 bg-white px-1 text-[12px] text-[#9A9AA8]">{label}</span>
-        <span className="pt-1 text-[14px] text-[#2B2B38]">{value}</span>
-        <NavIcon name="chevron" className={`size-4 text-[#A0A0B0] transition ${isOpen ? "-rotate-90" : "rotate-90"}`} />
+        <span className="absolute -top-2 left-3 bg-app-surface px-1 text-[12px] text-app-faint">{label}</span>
+        <span className="pt-1 text-[14px] text-app-fg">{value}</span>
+        <NavIcon name="chevron" className={`size-4 text-app-faint transition ${isOpen ? "-rotate-90" : "rotate-90"}`} />
       </button>
       {isOpen ? (
-        <div className="absolute z-30 mt-2 w-full overflow-hidden rounded-[12px] border border-[#E8EAF2] bg-white py-2 shadow-[0_12px_30px_rgba(40,45,80,0.12)]">
+        <div className="absolute z-30 mt-2 w-full overflow-hidden rounded-[12px] border border-app-border bg-app-surface py-2 shadow-[0_12px_30px_rgba(40,45,80,0.12)]">
           {options.map((option) => (
             <button
               key={option}
@@ -91,7 +91,7 @@ export function OutlinedSelect({
                 onOpenChange?.(false);
               }}
               className={`block w-full px-4 py-2.5 text-left text-[14px] ${
-                option === value ? "bg-[#F3F4F8] text-[#2B2B38]" : "text-[#4F4F5F] hover:bg-[#F7F8FC]"
+                option === value ? "bg-[#F3F4F8] text-app-fg" : "text-[#4F4F5F] hover:bg-app-muted-bg"
               }`}
             >
               {option}
@@ -121,8 +121,8 @@ export function OutlinedTextarea({
 }: OutlinedTextareaProps) {
   const id = useId();
   return (
-    <div className={`relative rounded-[10px] border border-[#E0E0E0] bg-white px-3.5 pb-2.5 pt-3 ${className}`}>
-      <label htmlFor={id} className="absolute -top-2 left-3 bg-white px-1 text-[12px] text-[#9A9AA8]">
+    <div className={`relative rounded-[10px] border border-[#E0E0E0] bg-app-surface px-3.5 pb-2.5 pt-3 ${className}`}>
+      <label htmlFor={id} className="absolute -top-2 left-3 bg-app-surface px-1 text-[12px] text-app-faint">
         {label}
       </label>
       <textarea
@@ -131,7 +131,7 @@ export function OutlinedTextarea({
         value={value}
         placeholder={placeholder}
         onChange={(event) => onChange(event.target.value)}
-        className="w-full resize-none bg-transparent text-[14px] leading-6 text-[#2B2B38] outline-none placeholder:text-[#B0B0BE]"
+        className="w-full resize-none bg-transparent text-[14px] leading-6 text-app-fg outline-none placeholder:text-app-faint"
         {...props}
       />
     </div>
@@ -174,14 +174,14 @@ export function ChipSelectField({ label, values, options, onChange, open, onOpen
       <button
         type="button"
         onClick={() => onOpenChange?.(!isOpen)}
-        className="relative flex min-h-[54px] w-full items-center justify-between gap-3 rounded-[10px] border border-[#E0E0E0] bg-white px-3.5 py-2.5 text-left"
+        className="relative flex min-h-[54px] w-full items-center justify-between gap-3 rounded-[10px] border border-[#E0E0E0] bg-app-surface px-3.5 py-2.5 text-left"
       >
-        <span className="absolute -top-2 left-3 bg-white px-1 text-[12px] text-[#9A9AA8]">{label}</span>
+        <span className="absolute -top-2 left-3 bg-app-surface px-1 text-[12px] text-app-faint">{label}</span>
         <div className="flex flex-1 flex-wrap gap-2 pt-1">
           {values.map((value) => (
             <span
               key={keyOf(value)}
-              className="inline-flex items-center gap-1 rounded-full bg-[#EEF0FF] px-2.5 py-1 text-[12px] font-medium text-[#666CFF]"
+              className="inline-flex items-center gap-1 rounded-full bg-[#EEF0FF] px-2.5 py-1 text-[12px] font-medium text-brand"
             >
               {value.label}
               <span
@@ -198,17 +198,17 @@ export function ChipSelectField({ label, values, options, onChange, open, onOpen
                     onChange(values.filter((item) => keyOf(item) !== keyOf(value)));
                   }
                 }}
-                className="inline-flex size-4 items-center justify-center rounded-full bg-white/70 text-[#666CFF]"
+                className="inline-flex size-4 items-center justify-center rounded-full bg-white/70 text-brand"
               >
                 ×
               </span>
             </span>
           ))}
         </div>
-        <NavIcon name="chevron" className={`size-4 text-[#A0A0B0] ${isOpen ? "-rotate-90" : "rotate-90"}`} />
+        <NavIcon name="chevron" className={`size-4 text-app-faint ${isOpen ? "-rotate-90" : "rotate-90"}`} />
       </button>
       {isOpen ? (
-        <div className="absolute z-30 mt-2 max-h-56 w-full overflow-auto rounded-[12px] border border-[#E8EAF2] bg-white py-2 shadow-[0_12px_30px_rgba(40,45,80,0.12)]">
+        <div className="absolute z-30 mt-2 max-h-56 w-full overflow-auto rounded-[12px] border border-app-border bg-app-surface py-2 shadow-[0_12px_30px_rgba(40,45,80,0.12)]">
           {options.map((option) => {
             const checked = values.some((item) => keyOf(item) === keyOf(option));
             return (
@@ -217,18 +217,18 @@ export function ChipSelectField({ label, values, options, onChange, open, onOpen
                 type="button"
                 onClick={() => toggle(option)}
                 className={`flex w-full items-center gap-3 px-4 py-2.5 text-left text-[14px] ${
-                  checked ? "bg-[#F3F4F8] text-[#2B2B38]" : "text-[#4F4F5F] hover:bg-[#F7F8FC]"
+                  checked ? "bg-[#F3F4F8] text-app-fg" : "text-[#4F4F5F] hover:bg-app-muted-bg"
                 }`}
               >
                 <span
                   className={`inline-flex size-4 items-center justify-center rounded-[4px] border ${
-                    checked ? "border-[#666CFF] bg-[#666CFF] text-white" : "border-[#C8C8D0]"
+                    checked ? "border-brand bg-brand text-white" : "border-[#C8C8D0]"
                   }`}
                 >
                   {checked ? "✓" : null}
                 </span>
                 <span className="flex-1">{option.label}</span>
-                <span className="text-[11px] uppercase tracking-[0.06em] text-[#9A9AA8]">{option.type}</span>
+                <span className="text-[11px] uppercase tracking-[0.06em] text-app-faint">{option.type}</span>
               </button>
             );
           })}

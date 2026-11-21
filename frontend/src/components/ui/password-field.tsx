@@ -28,7 +28,7 @@ export function PasswordField({ label, name, value, onChange, autoComplete }: Pa
         <Tooltip label={visible ? `Hide ${label}` : `Show ${label}`}>
           <button
             type="button"
-            className="cursor-pointer text-[#9a9a9a] hover:text-[#666CFF]"
+            className="cursor-pointer text-[#9a9a9a] hover:text-brand"
             aria-label={visible ? `Hide ${label}` : `Show ${label}`}
             aria-pressed={visible}
             onClick={() => setVisible((current) => !current)}

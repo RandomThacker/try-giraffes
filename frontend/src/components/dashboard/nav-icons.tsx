@@ -98,6 +98,13 @@ export function NavIcon({ name, className = "size-5" }: { name: string; classNam
         <rect x="4.5" y="13.5" width="6" height="6" rx="1.4" stroke="currentColor" strokeWidth="1.6" />
         <rect x="13.5" y="13.5" width="6" height="6" rx="1.4" stroke="currentColor" strokeWidth="1.6" />
       </>);
+    case "sun":
+      return base({ className }, <>
+        <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.6" />
+        <path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </>);
+    case "moon":
+      return base({ className }, <path d="M16.5 14.2A6.8 6.8 0 0 1 9.8 7.5 6.2 6.2 0 1 0 16.5 14.2Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />);
     case "arrow-up":
       return base({ className }, <path d="M12 17V7m0 0 4 4M12 7 8 11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />);
     case "arrow-down":

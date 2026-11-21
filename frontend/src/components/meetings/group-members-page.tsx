@@ -91,12 +91,12 @@ export function GroupMembersPage() {
   }
 
   return (
-    <div className="rounded-[18px] bg-white p-5 shadow-[0_8px_28px_rgba(45,50,90,0.06)] sm:p-7">
+    <div className="rounded-[18px] bg-app-surface p-5 shadow-[var(--app-shadow)] sm:p-7">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <button
           type="button"
           onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-[20px] font-semibold text-[#666CFF]"
+          className="inline-flex items-center gap-2 text-[20px] font-semibold text-brand"
         >
           <NavIcon name="arrow-left" className="size-5" />
           Group Members
@@ -104,14 +104,14 @@ export function GroupMembersPage() {
         <button
           type="button"
           onClick={() => setCreateOpen(true)}
-          className="inline-flex items-center gap-2 rounded-[10px] bg-[#666CFF] px-4 py-2.5 text-[14px] font-medium text-white"
+          className="inline-flex items-center gap-2 rounded-[10px] bg-brand px-4 py-2.5 text-[14px] font-medium text-white"
         >
           <NavIcon name="plus" className="size-4" />
           New group
         </button>
       </div>
 
-      {error ? <p className="mb-4 text-[13px] text-[#D14343]">{error}</p> : null}
+      {error ? <p className="mb-4 text-[13px] text-app-danger">{error}</p> : null}
 
       {loading ? (
         <div className="space-y-3">
@@ -120,8 +120,8 @@ export function GroupMembersPage() {
           ))}
         </div>
       ) : (
-        <div className="overflow-hidden rounded-[12px] border border-[#EEF0F5]">
-          <div className="hidden grid-cols-[1.4fr_0.7fr_1fr_0.4fr] bg-[#F7F8FC] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8A9A] md:grid">
+        <div className="overflow-hidden rounded-[12px] border border-app-border-2">
+          <div className="hidden grid-cols-[1.4fr_0.7fr_1fr_0.4fr] bg-app-muted-bg px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-app-muted md:grid">
             <span>Group name</span>
             <span>Size</span>
             <span>Members</span>
@@ -129,27 +129,27 @@ export function GroupMembersPage() {
           </div>
           <ul>
             {sorted.length === 0 ? (
-              <li className="px-4 py-8 text-center text-[13px] text-[#8A8A9A]">No groups yet.</li>
+              <li className="px-4 py-8 text-center text-[13px] text-app-muted">No groups yet.</li>
             ) : null}
             {sorted.map((group) => (
               <li
                 key={group.id}
-                className="flex flex-col gap-3 border-t border-[#EEF0F5] px-4 py-3 md:grid md:grid-cols-[1.4fr_0.7fr_1fr_0.4fr] md:items-center md:gap-0"
+                className="flex flex-col gap-3 border-t border-app-border-2 px-4 py-3 md:grid md:grid-cols-[1.4fr_0.7fr_1fr_0.4fr] md:items-center md:gap-0"
               >
                 <div className="min-w-0">
-                  <span className="block text-[14px] font-medium text-[#2B2B38]">{group.name}</span>
-                  <span className="mt-1 block text-[12px] text-[#8A8A9A] md:hidden">
+                  <span className="block text-[14px] font-medium text-app-fg">{group.name}</span>
+                  <span className="mt-1 block text-[12px] text-app-muted md:hidden">
                     {group.member_count} members
                   </span>
                 </div>
-                <span className="hidden text-[13px] text-[#8A8A9A] md:block">{group.member_count} members</span>
+                <span className="hidden text-[13px] text-app-muted md:block">{group.member_count} members</span>
                 <div className="flex items-center justify-between gap-3 md:contents">
                   <div className="flex items-center">
                     {group.member_labels.slice(0, 4).map((label, index) => (
                       <span
                         key={`${group.id}-${label}`}
                         title={label}
-                        className="inline-flex size-8 items-center justify-center rounded-full border-2 border-white bg-[#EEF0FF] text-[10px] font-semibold text-[#666CFF]"
+                        className="inline-flex size-8 items-center justify-center rounded-full border-2 border-white bg-[#EEF0FF] text-[10px] font-semibold text-brand"
                         style={{ marginLeft: index === 0 ? 0 : -8 }}
                       >
                         {initials(label)}
@@ -161,7 +161,7 @@ export function GroupMembersPage() {
                       type="button"
                       aria-label={`Delete ${group.name}`}
                       onClick={() => void onDelete(group.id)}
-                      className="inline-flex size-8 items-center justify-center rounded-[8px] bg-[#FDECEC] text-[#D14343]"
+                      className="inline-flex size-8 items-center justify-center rounded-[8px] bg-app-danger-bg text-app-danger"
                     >
                       <NavIcon name="close" className="size-3.5" />
                     </button>
@@ -190,7 +190,7 @@ export function GroupMembersPage() {
             <button
               type="button"
               onClick={() => setCreateOpen(false)}
-              className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-[#2B2B38]"
+              className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-app-fg"
             >
               Cancel
             </button>
@@ -198,7 +198,7 @@ export function GroupMembersPage() {
               type="button"
               disabled={saving}
               onClick={() => void onCreate()}
-              className="rounded-[10px] bg-[#666CFF] px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
+              className="rounded-[10px] bg-brand px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
             >
               {saving ? "Creating..." : "Create"}
             </button>

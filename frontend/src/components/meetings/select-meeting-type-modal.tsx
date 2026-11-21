@@ -26,10 +26,10 @@ export function SelectMeetingTypeModal({ open, onClose }: SelectMeetingTypeModal
           }}
           className="flex min-h-[150px] flex-col items-center justify-center gap-3 rounded-[16px] bg-[#F5F6FA] px-4 py-6 text-center transition hover:bg-[#EEF0FF]"
         >
-          <span className="inline-flex size-12 items-center justify-center rounded-full bg-white text-[#666CFF] shadow-sm">
+          <span className="inline-flex size-12 items-center justify-center rounded-full bg-app-surface text-brand shadow-sm">
             <NavIcon name="history" className="size-6" />
           </span>
-          <span className="text-[15px] font-medium text-[#2B2B38]">Instant meeting</span>
+          <span className="text-[15px] font-medium text-app-fg">Instant meeting</span>
         </button>
         <button
           type="button"
@@ -39,10 +39,10 @@ export function SelectMeetingTypeModal({ open, onClose }: SelectMeetingTypeModal
           }}
           className="flex min-h-[150px] flex-col items-center justify-center gap-3 rounded-[16px] bg-[#F5F6FA] px-4 py-6 text-center transition hover:bg-[#EEF0FF]"
         >
-          <span className="inline-flex size-12 items-center justify-center rounded-full bg-white text-[#666CFF] shadow-sm">
+          <span className="inline-flex size-12 items-center justify-center rounded-full bg-app-surface text-brand shadow-sm">
             <NavIcon name="calendar" className="size-6" />
           </span>
-          <span className="text-[15px] font-medium text-[#2B2B38]">Schedule for later</span>
+          <span className="text-[15px] font-medium text-app-fg">Schedule for later</span>
         </button>
       </div>
     </ModalShell>

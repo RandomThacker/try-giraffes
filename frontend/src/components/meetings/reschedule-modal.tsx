@@ -90,7 +90,7 @@ export function RescheduleModal({
           value={dateTime}
           onChange={setDateTime}
           type="datetime-local"
-          trailing={<NavIcon name="calendar" className="size-4 text-[#666CFF]" />}
+          trailing={<NavIcon name="calendar" className="size-4 text-brand" />}
         />
         <div className="grid gap-3 sm:grid-cols-[1fr_140px]">
           <OutlinedInput
@@ -109,12 +109,12 @@ export function RescheduleModal({
           />
         </div>
       </div>
-      {error ? <p className="mt-3 text-[13px] text-[#D14343]">{error}</p> : null}
+      {error ? <p className="mt-3 text-[13px] text-app-danger">{error}</p> : null}
       <div className="mt-6 flex items-center justify-between gap-3">
         <button
           type="button"
           onClick={onClose}
-          className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-[#2B2B38]"
+          className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-app-fg"
         >
           Cancel
         </button>
@@ -122,7 +122,7 @@ export function RescheduleModal({
           type="button"
           disabled={submitting || !dateTime}
           onClick={() => void onSubmit()}
-          className="rounded-[10px] bg-[#666CFF] px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
+          className="rounded-[10px] bg-brand px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
         >
           {submitting ? "Submitting..." : "Submit"}
         </button>

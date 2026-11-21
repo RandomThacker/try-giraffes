@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Logo } from "@/components/brand/logo";
 import { NavIcon } from "@/components/dashboard/nav-icons";
 import { navSections } from "@/components/dashboard/dummy-data";
+import { useTheme } from "@/components/theme/theme-provider";
 import { Tooltip } from "@/components/ui/tooltip";
 
 type SidebarProps = {
@@ -30,10 +31,12 @@ export function Sidebar({
   hideCollapse = false,
 }: SidebarProps) {
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
     <aside
-      className={`flex h-full flex-col border-r border-[#ECECF2] bg-[#F7F7F9] transition-[width] duration-200 ${
+      className={`flex h-full flex-col border-r border-app-border bg-app-sidebar transition-[width] duration-200 ${
         collapsed ? "w-[76px]" : "w-[248px]"
       } ${className}`}
     >
@@ -44,8 +47,8 @@ export function Sidebar({
             <img src="/images/logo-mark-brand.svg" alt="Try Giraffes" width={40} height={22} className="h-6 w-auto" />
           ) : (
             <div className="min-w-0">
-              <Logo tone="brand" className="h-7 w-auto" />
-              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#9A9AA8]">
+              <Logo tone={isDark ? "light" : "brand"} className="h-7 w-auto" />
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-app-faint">
                 Asset Management
               </p>
             </div>
@@ -57,7 +60,7 @@ export function Sidebar({
         {navSections.map((section) => (
           <div key={section.id} className={section.label ? "mt-5" : "mt-1"}>
             {section.label && !collapsed ? (
-              <p className="mb-2 px-3 text-[11px] font-semibold tracking-[0.08em] text-[#A0A0B0]">
+              <p className="mb-2 px-3 text-[11px] font-semibold tracking-[0.08em] text-app-faint">
                 {section.label}
               </p>
             ) : null}
@@ -68,10 +71,10 @@ export function Sidebar({
                   ? pathname === href || pathname.startsWith(`${href}/`)
                   : false;
                 const expandable = "expandable" in item && item.expandable;
-                const className = `flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left text-[14px] transition-colors ${
+                const itemClassName = `flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left text-[14px] transition-colors ${
                   active
-                    ? "bg-[#666CFF] text-white shadow-[0_8px_18px_rgba(102,108,255,0.28)]"
-                    : "text-[#6E6E80] hover:bg-white hover:text-[#3D3D4F]"
+                    ? "bg-brand text-white shadow-[0_8px_18px_rgba(102,108,255,0.28)]"
+                    : "text-app-muted-2 hover:bg-app-surface hover:text-app-fg"
                 } ${collapsed ? "justify-center px-0" : ""}`;
 
                 const content = (
@@ -79,17 +82,17 @@ export function Sidebar({
                     <NavIcon name={item.icon} className="size-[18px] shrink-0" />
                     {!collapsed ? <span className="flex-1 truncate">{item.label}</span> : null}
                     {!collapsed && expandable ? (
-                      <NavIcon name="chevron" className={`size-4 ${active ? "text-white/80" : "text-[#B0B0BE]"}`} />
+                      <NavIcon name="chevron" className={`size-4 ${active ? "text-white/80" : "text-app-faint"}`} />
                     ) : null}
                   </>
                 );
 
                 const control = href ? (
-                  <Link href={href} className={className} onClick={() => onNavigate?.()}>
+                  <Link href={href} className={itemClassName} onClick={() => onNavigate?.()}>
                     {content}
                   </Link>
                 ) : (
-                  <button type="button" className={className}>
+                  <button type="button" className={itemClassName}>
                     {content}
                   </button>
                 );
@@ -105,13 +108,26 @@ export function Sidebar({
         ))}
       </nav>
 
-      {hideCollapse ? null : (
-        <div className="border-t border-[#ECECF2] p-3">
+      <div className="border-t border-app-border p-3 space-y-1">
+        <Tooltip label={isDark ? "Switch to light mode" : "Switch to dark mode"} side="top">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14px] text-app-muted-2 hover:bg-app-surface ${
+              collapsed ? "justify-center px-0" : ""
+            }`}
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            <NavIcon name={isDark ? "sun" : "moon"} className="size-[18px]" />
+            {!collapsed ? <span>{isDark ? "Light mode" : "Dark mode"}</span> : null}
+          </button>
+        </Tooltip>
+        {hideCollapse ? null : (
           <Tooltip label={collapsed ? "Expand sidebar" : "Collapse sidebar"} side="top">
             <button
               type="button"
               onClick={onToggle}
-              className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14px] text-[#6E6E80] hover:bg-white ${
+              className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14px] text-app-muted-2 hover:bg-app-surface ${
                 collapsed ? "justify-center px-0" : ""
               }`}
               aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -120,8 +136,8 @@ export function Sidebar({
               {!collapsed ? <span>Collapse</span> : null}
             </button>
           </Tooltip>
-        </div>
-      )}
+        )}
+      </div>
     </aside>
   );
 }

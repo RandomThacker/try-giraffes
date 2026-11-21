@@ -9,7 +9,7 @@ export function LandingPage() {
         <header className="flex items-center justify-between gap-4">
           <Logo tone="brand" />
           <div className="flex items-center gap-3">
-            <Link href="/login" className="text-[14px] font-medium text-[#666CFF] hover:underline">
+            <Link href="/login" className="text-[14px] font-medium text-brand hover:underline">
               Log in
             </Link>
             <Link href="/signup">
@@ -21,7 +21,7 @@ export function LandingPage() {
         </header>
 
         <section className="flex flex-1 flex-col items-start justify-center py-16">
-          <p className="text-[14px] font-medium uppercase tracking-[0.18em] text-[#666CFF]">Try Giraffes</p>
+          <p className="text-[14px] font-medium uppercase tracking-[0.18em] text-brand">Try Giraffes</p>
           <h1 className="mt-4 max-w-2xl text-[40px] font-semibold leading-tight tracking-tight text-[#1f1f2b] sm:text-[52px]">
             Show up, mark present, and keep the day moving.
           </h1>

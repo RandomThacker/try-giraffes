@@ -50,7 +50,7 @@ export function MarkPresent() {
             {submitting === "absent" ? "Saving..." : "No"}
           </Button>
         </div>
-        {error ? <p className="mt-4 text-[14px] text-[#d14343]">{error}</p> : null}
+        {error ? <p className="mt-4 text-[14px] text-app-danger">{error}</p> : null}
       </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[48vh] min-h-[280px]">

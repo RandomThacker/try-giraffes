@@ -16,7 +16,7 @@ export function Fab({ onClick, label = "Add" }: { onClick?: () => void; label?: 
           type="button"
           aria-label={label}
           onClick={onClick}
-          className="inline-flex size-12 items-center justify-center rounded-full bg-[#666CFF] text-white shadow-[0_10px_24px_rgba(102,108,255,0.35)]"
+          className="inline-flex size-12 items-center justify-center rounded-full bg-brand text-white shadow-[0_10px_24px_rgba(102,108,255,0.35)]"
         >
           <NavIcon name="plus" className="size-5" />
         </button>

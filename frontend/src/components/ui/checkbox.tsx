@@ -19,7 +19,7 @@ export function Checkbox({ label, name, checked, onChange }: CheckboxProps) {
           type="checkbox"
           checked={checked}
           onChange={(event) => onChange(event.target.checked)}
-          className="peer size-[18px] cursor-pointer appearance-none rounded-[3px] border border-[#C8C8C8] bg-white checked:border-[#666CFF] checked:bg-[#666CFF]"
+          className="peer size-[18px] cursor-pointer appearance-none rounded-[3px] border border-[#C8C8C8] bg-app-surface checked:border-brand checked:bg-brand"
         />
         <svg
           viewBox="0 0 16 16"

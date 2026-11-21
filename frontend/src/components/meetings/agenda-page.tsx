@@ -229,33 +229,33 @@ export function AgendaPage() {
 
   return (
     <div className="grid gap-4 xl:grid-cols-[1.35fr_0.9fr]">
-      <section className="rounded-[18px] bg-white p-5 shadow-[0_8px_28px_rgba(45,50,90,0.06)]">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#EEF0F5] pb-3">
+      <section className="rounded-[18px] bg-app-surface p-5 shadow-[var(--app-shadow)]">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-app-border-2 pb-3">
           <div className="flex gap-6 text-[12px] font-semibold tracking-[0.08em]">
             <button
               type="button"
               onClick={() => setTab("tasks")}
-              className={`pb-2 ${tab === "tasks" ? "border-b-2 border-[#666CFF] text-[#666CFF]" : "text-[#9A9AA8]"}`}
+              className={`pb-2 ${tab === "tasks" ? "border-b-2 border-brand text-brand" : "text-app-faint"}`}
             >
               TASKS
             </button>
             <button
               type="button"
               onClick={() => setTab("reminders")}
-              className={`pb-2 ${tab === "reminders" ? "border-b-2 border-[#666CFF] text-[#666CFF]" : "text-[#9A9AA8]"}`}
+              className={`pb-2 ${tab === "reminders" ? "border-b-2 border-brand text-brand" : "text-app-faint"}`}
             >
               REMINDERS
             </button>
           </div>
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-[10px] border border-[#E6E7EF] px-3 py-2 text-[13px] text-[#5C5C6E]">
-              <NavIcon name="calendar" className="size-4 text-[#666CFF]" />
+            <span className="inline-flex items-center gap-2 rounded-[10px] border border-[#E6E7EF] px-3 py-2 text-[13px] text-app-muted-2">
+              <NavIcon name="calendar" className="size-4 text-brand" />
               {todayLabel}
             </span>
             <button
               type="button"
               onClick={() => (tab === "tasks" ? openCreateTask() : openCreateReminder())}
-              className="inline-flex items-center gap-2 rounded-[10px] bg-[#666CFF] px-3.5 py-2 text-[13px] font-medium text-white"
+              className="inline-flex items-center gap-2 rounded-[10px] bg-brand px-3.5 py-2 text-[13px] font-medium text-white"
             >
               <NavIcon name="plus" className="size-4" />
               {tab === "tasks" ? "New Task" : "New Reminder"}
@@ -263,7 +263,7 @@ export function AgendaPage() {
           </div>
         </div>
 
-        {error ? <p className="mt-3 text-[13px] text-[#D14343]">{error}</p> : null}
+        {error ? <p className="mt-3 text-[13px] text-app-danger">{error}</p> : null}
 
         {loading ? (
           <div className="mt-4 space-y-3">
@@ -272,30 +272,30 @@ export function AgendaPage() {
             ))}
           </div>
         ) : tab === "tasks" ? (
-          <div className="mt-4 overflow-hidden rounded-[12px] border border-[#EEF0F5]">
-            <div className="hidden grid-cols-[1.4fr_0.7fr_0.8fr] bg-[#F7F8FC] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8A9A] sm:grid">
+          <div className="mt-4 overflow-hidden rounded-[12px] border border-app-border-2">
+            <div className="hidden grid-cols-[1.4fr_0.7fr_0.8fr] bg-app-muted-bg px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-app-muted sm:grid">
               <span>Task name</span>
               <span>Due date</span>
               <span>Actions</span>
             </div>
             <ul>
               {tasks.length === 0 ? (
-                <li className="px-4 py-8 text-center text-[13px] text-[#8A8A9A]">No tasks yet.</li>
+                <li className="px-4 py-8 text-center text-[13px] text-app-muted">No tasks yet.</li>
               ) : null}
               {tasks.map((task) => (
                 <li
                   key={task.id}
-                  className="flex flex-col gap-3 border-t border-[#EEF0F5] px-4 py-3 sm:grid sm:grid-cols-[1.4fr_0.7fr_0.8fr] sm:items-center sm:gap-0"
+                  className="flex flex-col gap-3 border-t border-app-border-2 px-4 py-3 sm:grid sm:grid-cols-[1.4fr_0.7fr_0.8fr] sm:items-center sm:gap-0"
                 >
                   <div className="min-w-0">
-                    <span className={`block text-[14px] font-medium ${task.done ? "text-[#8A8A9A] line-through" : "text-[#2B2B38]"}`}>
+                    <span className={`block text-[14px] font-medium ${task.done ? "text-app-muted line-through" : "text-app-fg"}`}>
                       {task.title}
                     </span>
-                    <span className="mt-1 block text-[12px] text-[#8A8A9A] sm:hidden">
+                    <span className="mt-1 block text-[12px] text-app-muted sm:hidden">
                       Due {formatDueLabel(task.due_date)}
                     </span>
                   </div>
-                  <span className="hidden text-[13px] text-[#8A8A9A] sm:block">{formatDueLabel(task.due_date)}</span>
+                  <span className="hidden text-[13px] text-app-muted sm:block">{formatDueLabel(task.due_date)}</span>
                   <div className="flex items-center gap-2">
                     <Tooltip label={task.done ? "Mark incomplete" : "Mark complete"}>
                       <button
@@ -326,7 +326,7 @@ export function AgendaPage() {
                         type="button"
                         aria-label="Delete task"
                         onClick={() => void removeTask(task.id)}
-                        className="inline-flex size-8 items-center justify-center rounded-[8px] bg-[#FDECEC] text-[#D14343]"
+                        className="inline-flex size-8 items-center justify-center rounded-[8px] bg-app-danger-bg text-app-danger"
                       >
                         <NavIcon name="close" className="size-3.5" />
                       </button>
@@ -337,25 +337,25 @@ export function AgendaPage() {
             </ul>
           </div>
         ) : (
-          <div className="mt-4 overflow-hidden rounded-[12px] border border-[#EEF0F5]">
-            <div className="hidden grid-cols-[1.3fr_1fr_0.7fr] bg-[#F7F8FC] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8A9A] sm:grid">
+          <div className="mt-4 overflow-hidden rounded-[12px] border border-app-border-2">
+            <div className="hidden grid-cols-[1.3fr_1fr_0.7fr] bg-app-muted-bg px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-app-muted sm:grid">
               <span>Reminder</span>
               <span>When</span>
               <span>Actions</span>
             </div>
             <ul>
               {reminders.length === 0 ? (
-                <li className="px-4 py-8 text-center text-[13px] text-[#8A8A9A]">No reminders yet.</li>
+                <li className="px-4 py-8 text-center text-[13px] text-app-muted">No reminders yet.</li>
               ) : null}
               {reminders.map((reminder) => (
                 <li
                   key={reminder.id}
-                  className="flex flex-col gap-3 border-t border-[#EEF0F5] px-4 py-3 sm:grid sm:grid-cols-[1.3fr_1fr_0.7fr] sm:items-center sm:gap-0"
+                  className="flex flex-col gap-3 border-t border-app-border-2 px-4 py-3 sm:grid sm:grid-cols-[1.3fr_1fr_0.7fr] sm:items-center sm:gap-0"
                 >
                   <div className="min-w-0">
-                    <p className="text-[14px] font-medium text-[#2B2B38]">{reminder.title}</p>
-                    {reminder.note ? <p className="mt-1 text-[12px] text-[#8A8A9A]">{reminder.note}</p> : null}
-                    <p className="mt-1 text-[12px] text-[#8A8A9A] sm:hidden">
+                    <p className="text-[14px] font-medium text-app-fg">{reminder.title}</p>
+                    {reminder.note ? <p className="mt-1 text-[12px] text-app-muted">{reminder.note}</p> : null}
+                    <p className="mt-1 text-[12px] text-app-muted sm:hidden">
                       {new Date(reminder.remind_at).toLocaleString("en-GB", {
                         day: "2-digit",
                         month: "short",
@@ -364,7 +364,7 @@ export function AgendaPage() {
                       })}
                     </p>
                   </div>
-                  <span className="hidden text-[13px] text-[#8A8A9A] sm:block">
+                  <span className="hidden text-[13px] text-app-muted sm:block">
                     {new Date(reminder.remind_at).toLocaleString("en-GB", {
                       day: "2-digit",
                       month: "short",
@@ -388,7 +388,7 @@ export function AgendaPage() {
                         type="button"
                         aria-label="Delete reminder"
                         onClick={() => void removeReminder(reminder.id)}
-                        className="inline-flex size-8 items-center justify-center rounded-[8px] bg-[#FDECEC] text-[#D14343]"
+                        className="inline-flex size-8 items-center justify-center rounded-[8px] bg-app-danger-bg text-app-danger"
                       >
                         <NavIcon name="close" className="size-3.5" />
                       </button>
@@ -424,7 +424,7 @@ export function AgendaPage() {
             <button
               type="button"
               onClick={() => setTaskModalOpen(false)}
-              className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-[#2B2B38]"
+              className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-app-fg"
             >
               Cancel
             </button>
@@ -432,7 +432,7 @@ export function AgendaPage() {
               type="button"
               disabled={saving}
               onClick={() => void saveTask()}
-              className="rounded-[10px] bg-[#666CFF] px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
+              className="rounded-[10px] bg-brand px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
             >
               {saving ? "Saving..." : "Save"}
             </button>
@@ -454,7 +454,7 @@ export function AgendaPage() {
               value={reminderAt}
               onChange={setReminderAt}
             />
-            <p className="text-[12px] text-[#9A9AA8]">
+            <p className="text-[12px] text-app-faint">
               Saved only for now — timed reminder delivery will be added later.
             </p>
           </div>
@@ -462,7 +462,7 @@ export function AgendaPage() {
             <button
               type="button"
               onClick={() => setReminderModalOpen(false)}
-              className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-[#2B2B38]"
+              className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-app-fg"
             >
               Cancel
             </button>
@@ -470,7 +470,7 @@ export function AgendaPage() {
               type="button"
               disabled={saving}
               onClick={() => void saveReminder()}
-              className="rounded-[10px] bg-[#666CFF] px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
+              className="rounded-[10px] bg-brand px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
             >
               {saving ? "Saving..." : "Save"}
             </button>

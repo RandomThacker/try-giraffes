@@ -175,12 +175,12 @@ export function MeetingForm({ mode }: MeetingFormProps) {
   }
 
   return (
-    <div className="rounded-[18px] bg-white p-5 shadow-[0_8px_28px_rgba(45,50,90,0.06)] sm:p-7">
+    <div className="rounded-[18px] bg-app-surface p-5 shadow-[var(--app-shadow)] sm:p-7">
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <button
           type="button"
           onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-left text-[18px] font-semibold text-[#666CFF] sm:text-[20px]"
+          className="inline-flex items-center gap-2 text-left text-[18px] font-semibold text-brand sm:text-[20px]"
         >
           <NavIcon name="arrow-left" className="size-5 shrink-0" />
           {pageTitle}
@@ -189,7 +189,7 @@ export function MeetingForm({ mode }: MeetingFormProps) {
           <button
             type="button"
             onClick={() => router.push("/agenda/groups")}
-            className="rounded-[10px] bg-[#EEF0FF] px-3.5 py-2.5 text-[13px] font-medium text-[#666CFF] sm:px-4 sm:text-[14px]"
+            className="rounded-[10px] bg-[#EEF0FF] px-3.5 py-2.5 text-[13px] font-medium text-brand sm:px-4 sm:text-[14px]"
           >
             View group members
           </button>
@@ -197,14 +197,14 @@ export function MeetingForm({ mode }: MeetingFormProps) {
             type="button"
             disabled={submitting || uploading}
             onClick={() => void onSubmit()}
-            className="rounded-[10px] bg-[#666CFF] px-3.5 py-2.5 text-[13px] font-medium text-white disabled:opacity-60 sm:px-4 sm:text-[14px]"
+            className="rounded-[10px] bg-brand px-3.5 py-2.5 text-[13px] font-medium text-white disabled:opacity-60 sm:px-4 sm:text-[14px]"
           >
             {submitting ? "Saving..." : primaryLabel}
           </button>
         </div>
       </div>
 
-      {error ? <p className="mb-4 text-[13px] text-[#D14343]">{error}</p> : null}
+      {error ? <p className="mb-4 text-[13px] text-app-danger">{error}</p> : null}
       {directoryLoading ? (
         <div className="grid gap-8 lg:grid-cols-[1.05fr_1fr]">
           <div className="space-y-4">
@@ -245,12 +245,12 @@ export function MeetingForm({ mode }: MeetingFormProps) {
             open={purposeOpen}
             onOpenChange={setPurposeOpen}
           />
-          <p className="pt-2 text-[12px] text-[#9A9AA8]">
+          <p className="pt-2 text-[12px] text-app-faint">
             Note- Please note agenda and meeting schedule will be sent to partner on Whatsapp.
           </p>
         </div>
 
-        <div className="space-y-4 border-t border-[#EEF0F5] pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+        <div className="space-y-4 border-t border-app-border-2 pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
           {!isInstant ? (
             <>
               <div className="grid gap-3 sm:grid-cols-[1fr_140px]">
@@ -259,7 +259,7 @@ export function MeetingForm({ mode }: MeetingFormProps) {
                   value={isVirtual ? "Online" : location}
                   onChange={setLocation}
                   readOnly={isVirtual}
-                  className={isVirtual ? "bg-[#F7F8FC]" : ""}
+                  className={isVirtual ? "bg-app-muted-bg" : ""}
                 />
                 <OutlinedSelect
                   label="Type"
@@ -282,7 +282,7 @@ export function MeetingForm({ mode }: MeetingFormProps) {
                 value={dateTime}
                 onChange={setDateTime}
                 type="datetime-local"
-                trailing={<NavIcon name="calendar" className="size-4 text-[#666CFF]" />}
+                trailing={<NavIcon name="calendar" className="size-4 text-brand" />}
               />
             </>
           ) : null}
@@ -340,16 +340,16 @@ function ThumbnailUpload({
   return (
     <div className="space-y-3">
       <label className="flex min-h-[180px] cursor-pointer flex-col items-center justify-center gap-2 rounded-[14px] border border-dashed border-[#D5D7E5] bg-[#F8F9FC] px-4 py-8 text-center">
-        <span className="inline-flex size-11 items-center justify-center rounded-full bg-white text-[#666CFF] shadow-sm">
+        <span className="inline-flex size-11 items-center justify-center rounded-full bg-app-surface text-brand shadow-sm">
           <NavIcon name="upload" className="size-5" />
         </span>
         <p className="text-[14px] text-[#4F4F5F]">
-          <span className="font-medium text-[#666CFF]">
+          <span className="font-medium text-brand">
             {uploading ? "Uploading..." : "Click to upload Thumbnail"}
           </span>{" "}
           or drag and drop
         </p>
-        <p className="text-[12px] text-[#9A9AA8]">SVG, PNG, JPG or GIF (max. 800×400px)</p>
+        <p className="text-[12px] text-app-faint">SVG, PNG, JPG or GIF (max. 800×400px)</p>
         <input
           type="file"
           accept="image/svg+xml,image/png,image/jpeg,image/gif"
@@ -365,10 +365,10 @@ function ThumbnailUpload({
         />
       </label>
       {url ? (
-        <div className="flex items-center justify-between gap-3 rounded-[12px] border border-[#E8EAF2] bg-white px-3 py-2">
+        <div className="flex items-center justify-between gap-3 rounded-[12px] border border-app-border bg-app-surface px-3 py-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={url} alt="Thumbnail preview" className="h-12 w-20 rounded object-cover" />
-          <button type="button" onClick={onClear} className="text-[13px] text-[#D14343]">
+          <button type="button" onClick={onClear} className="text-[13px] text-app-danger">
             Remove
           </button>
         </div>

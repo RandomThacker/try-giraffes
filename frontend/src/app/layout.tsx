@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Public_Sans } from "next/font/google";
 import { SerwistProvider } from "@/components/pwa/serwist-provider";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 
 const publicSans = Public_Sans({
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: APP_NAME,
   },
   formatDetection: {
@@ -41,17 +42,16 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F3F8FB" },
-    { media: "(prefers-color-scheme: dark)", color: "#F3F8FB" },
-  ],
+  themeColor: "#F3F8FB",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${publicSans.variable} h-full antialiased`} suppressHydrationWarning>
       <body className={`${publicSans.className} min-h-full bg-white text-[#2a2a2a]`} suppressHydrationWarning>
-        <SerwistProvider>{children}</SerwistProvider>
+        <ThemeProvider>
+          <SerwistProvider>{children}</SerwistProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

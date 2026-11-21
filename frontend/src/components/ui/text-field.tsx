@@ -22,7 +22,7 @@ export function TextField({
   const id = useId();
 
   return (
-    <div className="relative rounded-[8px] border border-[#E0E0E0] bg-white px-3.5 pb-2 pt-1.5 transition-colors focus-within:border-[#666CFF]">
+    <div className="relative rounded-[8px] border border-[#E0E0E0] bg-white px-3.5 pb-2 pt-1.5 transition-colors focus-within:border-brand">
       <label htmlFor={id} className="block text-[12px] leading-4 text-[#A3A3A3]">
         {label}
       </label>

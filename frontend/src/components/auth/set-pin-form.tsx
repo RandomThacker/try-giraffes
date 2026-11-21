@@ -41,7 +41,7 @@ export function SetPinForm() {
       <button
         type="button"
         onClick={onBack}
-        className="inline-flex cursor-pointer items-center gap-2 text-[20px] font-semibold tracking-tight text-[#2a2a2a]"
+        className="inline-flex cursor-pointer items-center gap-2 text-[20px] font-semibold tracking-tight text-[#2B2B38]"
       >
         <ArrowLeftIcon className="size-5" />
         Set your Pin

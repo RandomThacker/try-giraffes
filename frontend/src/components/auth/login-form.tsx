@@ -58,7 +58,7 @@ export function LoginForm() {
 
   return (
     <form onSubmit={onSubmit} className="w-full">
-      <h1 className="text-[22px] font-semibold leading-tight tracking-tight text-[#2a2a2a] sm:text-[24px]">
+      <h1 className="text-[22px] font-semibold leading-tight tracking-tight text-[#2B2B38] sm:text-[24px]">
         Welcome back to Try Giraffes! <span aria-hidden="true">👋</span>
       </h1>
       <p className="mt-2 text-[15px] text-[#8a8a8a]">
@@ -91,7 +91,7 @@ export function LoginForm() {
           checked={rememberMe}
           onChange={setRememberMe}
         />
-        <button type="button" className="cursor-pointer text-[14px] font-medium text-[#666CFF] hover:underline">
+        <button type="button" className="cursor-pointer text-[14px] font-medium text-brand hover:underline">
           Forgot Password?
         </button>
       </div>
@@ -104,7 +104,7 @@ export function LoginForm() {
 
       <p className="mt-5 text-center text-[14px] text-[#8a8a8a]">
         New here?{" "}
-        <Link href="/signup" className="font-medium text-[#666CFF] hover:underline">
+        <Link href="/signup" className="font-medium text-brand hover:underline">
           Sign up
         </Link>
       </p>

@@ -1,21 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #2a2a2a;
-  --brand: #666cff;
-}
+/* Dark only when an ancestor sets data-theme="dark" (dashboard shell). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-brand: var(--brand);
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #2a2a2a;
+  --color-brand: #666cff;
+  --color-app-bg: #f3f8fb;
+  --color-app-surface: #ffffff;
+  --color-app-sidebar: #f7f7f9;
+  --color-app-muted-bg: #f7f8fc;
+  --color-app-chip: #eef0f5;
+  --color-app-avatar: #d9deff;
+  --color-app-skeleton: #e8eaf2;
+  --color-app-fg: #2b2b38;
+  --color-app-fg-strong: #1f1f2c;
+  --color-app-muted: #8a8a9a;
+  --color-app-muted-2: #6e6e80;
+  --color-app-faint: #9a9aa8;
+  --color-app-border: #ececf2;
+  --color-app-border-2: #eef0f5;
+  --color-app-danger: #d14343;
+  --color-app-danger-bg: #fdecec;
   --font-sans: var(--font-public-sans);
 }
 
+:root {
+  --app-shadow: 0 8px 28px rgba(45, 50, 90, 0.06);
+  --app-shadow-lg: 0 16px 40px rgba(30, 35, 70, 0.18);
+  --app-overlay: rgba(29, 31, 47, 0.45);
+}
+
+[data-theme="dark"] {
+  --color-background: #12141c;
+  --color-foreground: #e8e9f0;
+  --color-brand: #7b80ff;
+  --color-app-bg: #12141c;
+  --color-app-surface: #1c1f2a;
+  --color-app-sidebar: #161822;
+  --color-app-muted-bg: #242736;
+  --color-app-chip: #2a2e3d;
+  --color-app-avatar: #2f3358;
+  --color-app-skeleton: #2a2e3d;
+  --color-app-fg: #e8e9f0;
+  --color-app-fg-strong: #f3f4fa;
+  --color-app-muted: #9aa0b4;
+  --color-app-muted-2: #a4a9bc;
+  --color-app-faint: #8b91a5;
+  --color-app-border: #2c3040;
+  --color-app-border-2: #2c3040;
+  --color-app-danger: #ff6b6b;
+  --color-app-danger-bg: #3a2228;
+  --app-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --app-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.45);
+  --app-overlay: rgba(0, 0, 0, 0.55);
+  color-scheme: dark;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #ffffff;
+  color: #2a2a2a;
   font-family: var(--font-public-sans), "Public Sans", sans-serif;
 }
 

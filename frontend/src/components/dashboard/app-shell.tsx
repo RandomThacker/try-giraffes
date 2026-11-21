@@ -7,6 +7,7 @@ import { MobileBottomNav } from "@/components/dashboard/mobile-bottom-nav";
 import { MobileMoreSheet } from "@/components/dashboard/mobile-more-sheet";
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { Topbar } from "@/components/dashboard/topbar";
+import { useTheme } from "@/components/theme/theme-provider";
 import { AppShellSkeleton } from "@/components/ui/skeleton";
 
 type AppShellProps = {
@@ -26,6 +27,7 @@ function titleForPath(pathname: string) {
 export function AppShell({ children }: AppShellProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const { theme } = useTheme();
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -106,13 +108,16 @@ export function AppShell({ children }: AppShellProps) {
   }
 
   return (
-    <div className="flex min-h-svh bg-[#F3F8FB] text-[#2B2B38]">
+    <div
+      data-theme={theme}
+      className="flex min-h-svh bg-app-bg text-app-fg"
+    >
       <div className="sticky top-0 z-30 hidden h-svh shrink-0 self-start lg:block">
         <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((value) => !value)} />
       </div>
 
       <div className="flex min-h-svh min-w-0 flex-1 flex-col">
-        <div className="sticky top-0 z-20 bg-[#F3F8FB] lg:border-b lg:border-[#ECECF2]/70 lg:bg-[#F3F8FB]/95 lg:backdrop-blur">
+        <div className="sticky top-0 z-20 bg-app-bg lg:border-b lg:border-app-border/70 lg:bg-app-bg/95 lg:backdrop-blur">
           <Topbar
             title={titleForPath(pathname)}
             userName={displayName || "Vivek Verma"}
@@ -120,7 +125,7 @@ export function AppShell({ children }: AppShellProps) {
           />
         </div>
         <main className="flex-1 px-4 pt-1 pb-24 sm:px-6 sm:pt-2 sm:pb-6 lg:px-8 lg:py-6">
-          {error ? <p className="mb-4 text-[14px] text-[#d14343]">{error}</p> : null}
+          {error ? <p className="mb-4 text-[14px] text-app-danger">{error}</p> : null}
           {children}
         </main>
         <Suspense fallback={null}>

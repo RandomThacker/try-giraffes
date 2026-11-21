@@ -61,7 +61,7 @@ export function SignupForm() {
 
   return (
     <form onSubmit={onSubmit} className="w-full">
-      <h1 className="text-[22px] font-semibold leading-tight tracking-tight text-[#2a2a2a] sm:text-[24px]">
+      <h1 className="text-[22px] font-semibold leading-tight tracking-tight text-[#2B2B38] sm:text-[24px]">
         Create your Try Giraffes account
       </h1>
       <p className="mt-2 text-[15px] text-[#8a8a8a]">Sign up to set your PIN and start marking attendance.</p>
@@ -100,7 +100,7 @@ export function SignupForm() {
 
       <p className="mt-5 text-center text-[14px] text-[#8a8a8a]">
         Already have an account?{" "}
-        <Link href="/login" className="font-medium text-[#666CFF] hover:underline">
+        <Link href="/login" className="font-medium text-brand hover:underline">
           Log in
         </Link>
       </p>

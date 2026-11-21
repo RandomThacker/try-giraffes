@@ -75,13 +75,13 @@ export function MeetingListCard({
 
   return (
     <section
-      className={`relative flex h-full min-h-[320px] flex-col rounded-[18px] bg-white p-4 shadow-[0_8px_28px_rgba(45,50,90,0.06)] sm:min-h-[420px] sm:p-5 ${className}`}
+      className={`relative flex h-full min-h-[320px] flex-col rounded-[18px] bg-app-surface p-4 shadow-[var(--app-shadow)] sm:min-h-[420px] sm:p-5 ${className}`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2">
           <h2
             className={`truncate font-semibold ${
-              showAddPerson ? "text-[16px] text-[#666CFF]" : "text-[18px] text-[#2B2B38]"
+              showAddPerson ? "text-[16px] text-brand" : "text-[18px] text-app-fg"
             }`}
           >
             {title}
@@ -92,7 +92,7 @@ export function MeetingListCard({
                 type="button"
                 aria-label="Add meeting"
                 onClick={() => setTypeModalOpen(true)}
-                className="inline-flex size-8 items-center justify-center rounded-full bg-[#EEF0FF] text-[#666CFF]"
+                className="inline-flex size-8 items-center justify-center rounded-full bg-[#EEF0FF] text-brand"
               >
                 <NavIcon name="user" className="size-4" />
               </button>
@@ -102,26 +102,26 @@ export function MeetingListCard({
         {showSeeAll ? (
           <Link
             href={seeAllHref}
-            className="inline-flex rounded-full bg-[#EEF0FF] px-3 py-1 text-[13px] text-[#666CFF]"
+            className="inline-flex rounded-full bg-[#EEF0FF] px-3 py-1 text-[13px] text-brand"
           >
             see all
           </Link>
         ) : null}
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-[#EEF0F5]">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-app-border-2">
         <div className="flex gap-5 text-[12px] font-semibold tracking-[0.08em] sm:gap-6">
           <button
             type="button"
             onClick={() => setTab("today")}
-            className={`pb-3 ${tab === "today" ? "border-b-2 border-[#666CFF] text-[#666CFF]" : "text-[#9A9AA8]"}`}
+            className={`pb-3 ${tab === "today" ? "border-b-2 border-brand text-brand" : "text-app-faint"}`}
           >
             TODAY
           </button>
           <button
             type="button"
             onClick={() => setTab("upcoming")}
-            className={`pb-3 ${tab === "upcoming" ? "border-b-2 border-[#666CFF] text-[#666CFF]" : "text-[#9A9AA8]"}`}
+            className={`pb-3 ${tab === "upcoming" ? "border-b-2 border-brand text-brand" : "text-app-faint"}`}
           >
             UPCOMING
           </button>
@@ -131,13 +131,13 @@ export function MeetingListCard({
             <button
               type="button"
               onClick={() => setFilterOpen((value) => !value)}
-              className="inline-flex items-center gap-2 rounded-[10px] border border-[#C9CCF5] px-3 py-1.5 text-[13px] text-[#666CFF]"
+              className="inline-flex items-center gap-2 rounded-[10px] border border-[#C9CCF5] px-3 py-1.5 text-[13px] text-brand"
             >
               {filter}
               <NavIcon name="chevron" className="size-4 rotate-90" />
             </button>
             {filterOpen ? (
-              <div className="absolute right-0 z-20 mt-2 min-w-[140px] overflow-hidden rounded-[10px] border border-[#E8EAF2] bg-white py-1 shadow-lg">
+              <div className="absolute right-0 z-20 mt-2 min-w-[140px] overflow-hidden rounded-[10px] border border-app-border bg-app-surface py-1 shadow-lg">
                 {["All", "One to one", "One to many"].map((option) => (
                   <button
                     key={option}
@@ -146,7 +146,7 @@ export function MeetingListCard({
                       setFilter(option);
                       setFilterOpen(false);
                     }}
-                    className="block w-full px-3 py-2 text-left text-[13px] text-[#4F4F5F] hover:bg-[#F7F8FC]"
+                    className="block w-full px-3 py-2 text-left text-[13px] text-[#4F4F5F] hover:bg-app-muted-bg"
                   >
                     {option}
                   </button>
@@ -157,29 +157,29 @@ export function MeetingListCard({
         ) : null}
       </div>
 
-      {error ? <p className="mt-3 text-[13px] text-[#D14343]">{error}</p> : null}
+      {error ? <p className="mt-3 text-[13px] text-app-danger">{error}</p> : null}
       {loading ? <MeetingListSkeleton /> : null}
 
       {!loading ? (
         <ul className="mt-2 flex-1 space-y-1 overflow-auto pr-1">
           {meetings.length === 0 ? (
-            <li className="py-8 text-center text-[13px] text-[#8A8A9A]">No meetings found.</li>
+            <li className="py-8 text-center text-[13px] text-app-muted">No meetings found.</li>
           ) : null}
           {meetings.map((item) => {
             const disabled = Boolean(item.cancelled);
             return (
-              <li key={item.id} className="flex items-center gap-3 border-b border-[#F3F4F8] py-3 last:border-b-0">
+              <li key={item.id} className="flex items-center gap-3 border-b border-app-border-2 py-3 last:border-b-0">
                 <div className="min-w-0 flex-1 overflow-hidden">
                   <p
                     className={`truncate text-[14px] font-medium ${
-                      item.cancelled ? "text-[#E25555] line-through" : "text-[#2B2B38]"
+                      item.cancelled ? "text-[#E25555] line-through" : "text-app-fg"
                     }`}
                   >
                     {item.title}
                     {item.cancelled ? " (cancelled)" : ""}
                   </p>
-                  <p className="mt-1 flex items-center gap-2 text-[12px] text-[#8A8A9A]">
-                    <NavIcon name="calendar" className="size-3.5 shrink-0 text-[#A8A8B8]" />
+                  <p className="mt-1 flex items-center gap-2 text-[12px] text-app-muted">
+                    <NavIcon name="calendar" className="size-3.5 shrink-0 text-app-faint" />
                     <span className="truncate">
                       {item.date} | {item.time}
                     </span>
@@ -230,7 +230,7 @@ export function MeetingListCard({
               type="button"
               aria-label="Add meeting"
               onClick={() => setTypeModalOpen(true)}
-              className="inline-flex size-12 items-center justify-center rounded-full bg-[#666CFF] text-white shadow-[0_10px_24px_rgba(102,108,255,0.35)]"
+              className="inline-flex size-12 items-center justify-center rounded-full bg-brand text-white shadow-[0_10px_24px_rgba(102,108,255,0.35)]"
             >
               <NavIcon name="plus" className="size-5" />
             </button>
@@ -279,8 +279,8 @@ function ActionChip({
 }) {
   const styles = {
     green: "bg-[#E8F8EE] text-[#2F9E5F]",
-    red: "bg-[#FDECEC] text-[#D14343]",
-    gray: "bg-[#F1F2F6] text-[#7A7A8A]",
+    red: "bg-app-danger-bg text-app-danger",
+    gray: "bg-app-chip text-app-muted-2",
   }[tone];
   return (
     <Tooltip label={label}>

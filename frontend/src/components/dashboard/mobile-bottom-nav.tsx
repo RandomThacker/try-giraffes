@@ -37,14 +37,14 @@ export function MobileBottomNav({ moreOpen, onMoreClick }: MobileBottomNavProps)
   ] as const;
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-[#ECECF2] bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-app-border bg-app-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden">
       <div className="mx-auto grid max-w-lg grid-cols-4 px-1 pt-1.5 pb-2">
         {links.map((item) => (
           <Link
             key={item.id}
             href={item.href}
             className={`flex flex-col items-center gap-1 rounded-[12px] px-2 py-2 text-[11px] font-medium ${
-              item.active ? "text-[#666CFF]" : "text-[#8A8A9A]"
+              item.active ? "text-brand" : "text-app-muted"
             }`}
           >
             <NavIcon name={item.icon} className="size-5" />
@@ -58,7 +58,7 @@ export function MobileBottomNav({ moreOpen, onMoreClick }: MobileBottomNavProps)
           aria-expanded={moreOpen}
           onClick={onMoreClick}
           className={`flex flex-col items-center gap-1 rounded-[12px] px-2 py-2 text-[11px] font-medium ${
-            moreOpen ? "text-[#666CFF]" : "text-[#8A8A9A]"
+            moreOpen ? "text-brand" : "text-app-muted"
           }`}
         >
           <NavIcon name="more" className="size-5" />

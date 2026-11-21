@@ -1,6 +1,6 @@
 export function IllustrationPanel() {
   return (
-    <aside className="relative hidden min-h-svh min-w-0 overflow-hidden bg-[#666CFF] lg:block">
+    <aside className="relative hidden min-h-svh min-w-0 overflow-hidden bg-brand lg:block">
       {/* Purple base floor */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img

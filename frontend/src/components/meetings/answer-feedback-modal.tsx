@@ -91,10 +91,10 @@ export function AnswerFeedbackModal({
 
   return (
     <ModalShell title="Meeting Feedback" onClose={onClose} widthClassName="max-w-[560px]">
-      <p className="mb-4 text-[13px] text-[#8A8A9A]">
+      <p className="mb-4 text-[13px] text-app-muted">
         Question {index + 1} of {questions.length}
       </p>
-      <p className="mb-4 text-[15px] font-medium text-[#2B2B38]">{current.prompt}</p>
+      <p className="mb-4 text-[15px] font-medium text-app-fg">{current.prompt}</p>
 
       {current.question_type === "paragraph" ? (
         <OutlinedTextarea
@@ -115,12 +115,12 @@ export function AnswerFeedbackModal({
                 type="button"
                 onClick={() => toggleOption(option, current.question_type === "checkbox")}
                 className={`flex w-full items-center gap-3 rounded-[10px] border px-3 py-2.5 text-left text-[14px] ${
-                  selected ? "border-[#666CFF] bg-[#EEF0FF] text-[#666CFF]" : "border-[#E0E0E0] text-[#2B2B38]"
+                  selected ? "border-brand bg-[#EEF0FF] text-brand" : "border-[#E0E0E0] text-app-fg"
                 }`}
               >
                 <span
                   className={`inline-flex size-4 items-center justify-center rounded-[4px] border ${
-                    selected ? "border-[#666CFF] bg-[#666CFF] text-white" : "border-[#C8C8D0]"
+                    selected ? "border-brand bg-brand text-white" : "border-[#C8C8D0]"
                   }`}
                 >
                   {selected ? "✓" : null}
@@ -145,7 +145,7 @@ export function AnswerFeedbackModal({
                 type="button"
                 onClick={() => setScaleAnswers((prev) => ({ ...prev, [current.id]: value }))}
                 className={`inline-flex size-10 items-center justify-center rounded-[10px] text-[14px] font-medium ${
-                  selected ? "bg-[#666CFF] text-white" : "bg-[#F1F2F6] text-[#4F4F5F]"
+                  selected ? "bg-brand text-white" : "bg-[#F1F2F6] text-[#4F4F5F]"
                 }`}
               >
                 {value}
@@ -155,7 +155,7 @@ export function AnswerFeedbackModal({
         </div>
       ) : null}
 
-      {error ? <p className="mt-3 text-[13px] text-[#D14343]">{error}</p> : null}
+      {error ? <p className="mt-3 text-[13px] text-app-danger">{error}</p> : null}
       <div className="mt-6 flex items-center justify-between gap-3">
         <button
           type="button"
@@ -167,7 +167,7 @@ export function AnswerFeedbackModal({
             }
             setIndex((value) => value - 1);
           }}
-          className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-[#2B2B38]"
+          className="rounded-[10px] border border-[#D9DBE5] px-5 py-2.5 text-[14px] font-medium text-app-fg"
         >
           {index === 0 ? "Skip" : "Go back"}
         </button>
@@ -181,7 +181,7 @@ export function AnswerFeedbackModal({
             }
             setIndex((value) => value + 1);
           }}
-          className="rounded-[10px] bg-[#666CFF] px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
+          className="rounded-[10px] bg-brand px-5 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
         >
           {isLast ? (submitting ? "Submitting..." : "Submit") : "Next"}
         </button>
