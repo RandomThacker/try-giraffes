@@ -41,7 +41,7 @@ export function Topbar({ title = "Dashboard", userName, onLogout }: TopbarProps)
   }, [profileOpen]);
 
   return (
-    <header className="px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-2 sm:px-6 sm:pt-5 sm:pb-5 lg:px-8">
+    <header className="px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-2 sm:px-6 sm:pt-5 sm:pb-4 lg:px-6 lg:pt-4">
       {/* Mobile: brand + profile */}
       <div className="flex items-center justify-between gap-3 lg:hidden">
         <div className="min-w-0">
@@ -83,27 +83,31 @@ export function Topbar({ title = "Dashboard", userName, onLogout }: TopbarProps)
 
       {/* Desktop / large screens */}
       <div className="hidden items-center justify-between gap-4 lg:flex">
-        <h1 className="truncate text-[28px] font-semibold tracking-tight text-app-fg">{title}</h1>
+        <h1 className="truncate text-[17px] font-medium text-app-fg">{title}</h1>
         <div className="flex shrink-0 items-center gap-4">
           <Tooltip label="Notifications">
             <button
               type="button"
-              className="inline-flex size-11 items-center justify-center rounded-full bg-app-chip text-app-muted-2"
+              className="relative inline-flex size-9 items-center justify-center rounded-full bg-app-chip text-app-muted-2"
               aria-label="Notifications"
             >
-              <NavIcon name="bell" className="size-5" />
+              <NavIcon name="bell" className="size-[18px]" />
+              <span className="absolute top-1.5 right-2 size-2 rounded-full bg-[#F04438] ring-2 ring-app-chip" />
             </button>
           </Tooltip>
-          <div className="flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center overflow-hidden rounded-full bg-app-avatar text-[13px] font-semibold text-brand">
-              {initialsFor(userName)}
+          <div className="flex items-center gap-2.5">
+            <div className="relative">
+              <div className="flex size-9 items-center justify-center overflow-hidden rounded-full bg-app-avatar text-[12px] font-semibold text-brand">
+                {initialsFor(userName)}
+              </div>
+              <span className="absolute right-0 bottom-0 size-2.5 rounded-full bg-[#2FBF71] ring-2 ring-app-bg" />
             </div>
-            <div className="min-w-0">
-              <p className="truncate text-[14px] font-semibold text-app-fg">{userName}</p>
+            <div className="min-w-0 leading-tight">
+              <p className="truncate text-[12.5px] font-medium text-app-fg">{userName}</p>
               <button
                 type="button"
                 onClick={onLogout}
-                className="text-[12px] text-brand hover:underline"
+                className="text-[11px] text-app-muted hover:text-brand hover:underline"
               >
                 Log out
               </button>

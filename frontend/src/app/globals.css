@@ -33,28 +33,29 @@
 }
 
 [data-theme="dark"] {
-  --color-background: #12141c;
-  --color-foreground: #e8e9f0;
-  --color-brand: #7b80ff;
-  --color-app-bg: #12141c;
-  --color-app-surface: #1c1f2a;
-  --color-app-sidebar: #161822;
-  --color-app-muted-bg: #242736;
-  --color-app-chip: #2a2e3d;
-  --color-app-avatar: #2f3358;
-  --color-app-skeleton: #2a2e3d;
-  --color-app-fg: #e8e9f0;
-  --color-app-fg-strong: #f3f4fa;
-  --color-app-muted: #9aa0b4;
-  --color-app-muted-2: #a4a9bc;
-  --color-app-faint: #8b91a5;
-  --color-app-border: #2c3040;
-  --color-app-border-2: #2c3040;
-  --color-app-danger: #ff6b6b;
-  --color-app-danger-bg: #3a2228;
-  --app-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-  --app-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.45);
-  --app-overlay: rgba(0, 0, 0, 0.55);
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+  --color-brand: #7479f8;
+  --color-app-bg: #0a0a0a;
+  --color-app-surface: #141414;
+  --color-app-sidebar: #0e0e0e;
+  --color-app-muted-bg: #1b1b1b;
+  --color-app-chip: #1f1f1f;
+  --color-app-avatar: #26262b;
+  --color-app-skeleton: #1f1f1f;
+  --color-app-fg: #ededed;
+  --color-app-fg-strong: #f7f7f7;
+  --color-app-muted: #8f8f8f;
+  --color-app-muted-2: #a3a3a3;
+  --color-app-faint: #707070;
+  --color-app-border: #262626;
+  --color-app-border-2: #1f1f1f;
+  --color-app-danger: #f27a85;
+  --color-app-danger-bg: #2a1618;
+  --app-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 12px 32px rgba(0, 0, 0, 0.5);
+  --app-shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.07), 0 24px 56px rgba(0, 0, 0, 0.65);
+  --app-overlay: rgba(0, 0, 0, 0.72);
   color-scheme: dark;
 }
 

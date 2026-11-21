@@ -110,13 +110,13 @@ export function AppShell({ children }: AppShellProps) {
   return (
     <div
       data-theme={theme}
-      className="flex min-h-svh bg-app-bg text-app-fg"
+      className="flex min-h-svh bg-app-bg text-app-fg lg:h-svh lg:overflow-hidden"
     >
       <div className="sticky top-0 z-30 hidden h-svh shrink-0 self-start lg:block">
         <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((value) => !value)} />
       </div>
 
-      <div className="flex min-h-svh min-w-0 flex-1 flex-col">
+      <div className="flex min-h-svh min-w-0 flex-1 flex-col lg:h-svh lg:min-h-0">
         <div className="sticky top-0 z-20 bg-app-bg lg:border-b lg:border-app-border/70 lg:bg-app-bg/95 lg:backdrop-blur">
           <Topbar
             title={titleForPath(pathname)}
@@ -124,7 +124,7 @@ export function AppShell({ children }: AppShellProps) {
             onLogout={() => void onLogout()}
           />
         </div>
-        <main className="flex-1 px-4 pt-1 pb-24 sm:px-6 sm:pt-2 sm:pb-6 lg:px-8 lg:py-6">
+        <main className="flex flex-1 flex-col lg:min-h-0 lg:overflow-y-auto px-4 pt-1 pb-24 sm:px-6 sm:pt-2 sm:pb-6 lg:px-6 lg:py-4">
           {error ? <p className="mb-4 text-[14px] text-app-danger">{error}</p> : null}
           {children}
         </main>

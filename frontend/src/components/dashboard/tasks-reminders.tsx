@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { NavIcon } from "@/components/dashboard/nav-icons";
+import { SeeAllPill } from "@/components/dashboard/see-all-pill";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip } from "@/components/ui/tooltip";
 import { listReminders, listTasks, type Reminder, type Task } from "@/lib/api/tasks";
@@ -54,46 +54,40 @@ export function TasksReminders() {
   }, [load]);
 
   return (
-    <div className="flex h-full min-h-[320px] flex-col gap-4 sm:min-h-[420px] lg:grid lg:grid-cols-2 xl:flex xl:flex-col">
-      <section className="relative flex flex-1 flex-col rounded-[18px] bg-app-surface p-4 shadow-[var(--app-shadow)] sm:p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <h2 className="text-[18px] font-semibold text-app-fg">Tasks</h2>
-            <Link href="/agenda" className="mt-1 inline-block text-[13px] text-brand hover:underline">
-              see all
-            </Link>
-          </div>
+    <div className="grid gap-4 lg:grid-cols-2 xl:h-full xl:grid-cols-1 xl:grid-rows-2">
+      <section className="relative flex h-[200px] min-h-0 flex-col xl:h-auto overflow-hidden rounded-[14px] bg-app-surface p-4 shadow-[var(--app-shadow)]">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-[17px] font-medium text-app-fg">Tasks</h2>
+          <SeeAllPill href="/agenda?tab=tasks" />
         </div>
         {loading ? (
-          <div className="mt-4 space-y-3">
-            <Skeleton className="h-14 w-full" />
-            <Skeleton className="h-14 w-full" />
+          <div className="mt-3 space-y-2">
+            <Skeleton className="h-8 w-full" />
+            <Skeleton className="h-8 w-full" />
           </div>
         ) : (
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-2 flex-1 space-y-2 overflow-auto pr-10">
             {tasks.length === 0 ? (
-              <li className="rounded-[12px] bg-app-muted-bg px-3.5 py-3 text-[13px] text-app-muted">
-                No open tasks.
-              </li>
+              <li className="text-[12px] text-app-muted">No open tasks.</li>
             ) : null}
             {tasks.map((item) => (
-              <li key={item.id} className="rounded-[12px] bg-app-muted-bg px-3.5 py-3">
-                <p className="text-[14px] font-medium text-app-fg">{item.title}</p>
-                <p className="mt-1 flex items-center gap-2 text-[12px] text-app-muted">
-                  <NavIcon name="calendar" className="size-3.5" />
+              <li key={item.id}>
+                <p className="truncate text-[12.5px] font-semibold text-app-fg">{item.title}</p>
+                <p className="mt-0.5 flex items-center gap-1.5 text-[11px] text-app-muted">
+                  <NavIcon name="calendar" className="size-3 text-app-faint" />
                   {formatDueLabel(item.due_date)}
                 </p>
               </li>
             ))}
           </ul>
         )}
-        <div className="absolute bottom-4 right-4 z-10">
+        <div className="absolute right-3 bottom-3 z-10">
           <Tooltip label="Add task">
             <button
               type="button"
               aria-label="Add task"
-              onClick={() => router.push("/agenda")}
-              className="inline-flex size-11 items-center justify-center rounded-full bg-brand text-white shadow-[0_10px_24px_rgba(102,108,255,0.35)]"
+              onClick={() => router.push("/agenda?tab=tasks")}
+              className="inline-flex size-10 items-center justify-center rounded-full bg-brand text-white shadow-[0_8px_20px_rgba(102,108,255,0.35)]"
             >
               <NavIcon name="plus" className="size-5" />
             </button>
@@ -101,34 +95,25 @@ export function TasksReminders() {
         </div>
       </section>
 
-      <section className="rounded-[18px] bg-app-surface p-4 shadow-[var(--app-shadow)] sm:p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <h2 className="text-[18px] font-semibold text-app-fg">Reminders</h2>
-            <Link href="/agenda" className="mt-1 inline-block text-[13px] text-brand hover:underline">
-              see all
-            </Link>
-          </div>
+      <section className="flex h-[200px] min-h-0 flex-col xl:h-auto overflow-hidden rounded-[14px] bg-app-surface p-4 shadow-[var(--app-shadow)]">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-[17px] font-medium text-app-fg">Reminders</h2>
+          <SeeAllPill href="/agenda?tab=reminders" />
         </div>
         {loading ? (
-          <div className="mt-4 space-y-3">
-            <Skeleton className="h-12 w-full" />
-            <Skeleton className="h-12 w-full" />
+          <div className="mt-3 space-y-2">
+            <Skeleton className="h-8 w-full" />
+            <Skeleton className="h-8 w-full" />
           </div>
         ) : (
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-2 flex-1 space-y-2 overflow-auto">
             {reminders.length === 0 ? (
-              <li className="text-[13px] text-app-muted">No reminders yet.</li>
+              <li className="text-[12px] text-app-muted">No reminders yet.</li>
             ) : null}
             {reminders.map((item) => (
-              <li key={item.id} className="flex items-center gap-3">
-                <div className="inline-flex size-10 items-center justify-center rounded-[10px] bg-[#EEF0FF] text-brand">
-                  <NavIcon name="bell" className="size-[18px]" />
-                </div>
-                <div className="min-w-0">
-                  <p className="truncate text-[14px] font-medium text-app-fg">{item.title}</p>
-                  <p className="text-[12px] text-app-muted">{formatRemindLabel(item.remind_at)}</p>
-                </div>
+              <li key={item.id}>
+                <p className="truncate text-[12.5px] font-semibold text-app-fg">{item.title}</p>
+                <p className="mt-0.5 text-[11px] text-app-muted">{formatRemindLabel(item.remind_at)}</p>
               </li>
             ))}
           </ul>
