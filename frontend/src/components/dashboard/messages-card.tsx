@@ -16,7 +16,7 @@ export function MessagesCard() {
   const [tab, setTab] = useState<"today" | "past">("today");
 
   return (
-    <section className="relative flex h-full min-h-[420px] flex-col rounded-[18px] bg-white p-5 shadow-[0_8px_28px_rgba(45,50,90,0.06)]">
+    <section className="relative flex h-full min-h-[320px] flex-col rounded-[18px] bg-white p-4 shadow-[0_8px_28px_rgba(45,50,90,0.06)] sm:min-h-[420px] sm:p-5">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-[18px] font-semibold text-[#2B2B38]">Messages (Dummy)</h2>

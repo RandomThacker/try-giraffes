@@ -75,12 +75,12 @@ export function MeetingListCard({
 
   return (
     <section
-      className={`relative flex h-full min-h-[420px] flex-col rounded-[18px] bg-white p-5 shadow-[0_8px_28px_rgba(45,50,90,0.06)] ${className}`}
+      className={`relative flex h-full min-h-[320px] flex-col rounded-[18px] bg-white p-4 shadow-[0_8px_28px_rgba(45,50,90,0.06)] sm:min-h-[420px] sm:p-5 ${className}`}
     >
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 items-center gap-2">
           <h2
-            className={`font-semibold ${
+            className={`truncate font-semibold ${
               showAddPerson ? "text-[16px] text-[#666CFF]" : "text-[18px] text-[#2B2B38]"
             }`}
           >
@@ -109,8 +109,8 @@ export function MeetingListCard({
         ) : null}
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-3 border-b border-[#EEF0F5]">
-        <div className="flex gap-6 text-[12px] font-semibold tracking-[0.08em]">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-[#EEF0F5]">
+        <div className="flex gap-5 text-[12px] font-semibold tracking-[0.08em] sm:gap-6">
           <button
             type="button"
             onClick={() => setTab("today")}
@@ -127,7 +127,7 @@ export function MeetingListCard({
           </button>
         </div>
         {showFilter ? (
-          <div className="relative -mt-1 mb-2">
+          <div className="relative mb-2">
             <button
               type="button"
               onClick={() => setFilterOpen((value) => !value)}

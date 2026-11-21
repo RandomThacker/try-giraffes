@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { Suspense, useEffect, useMemo, useState, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ApiError, getMe, logout, type User } from "@/lib/api/client";
+import { MobileBottomNav } from "@/components/dashboard/mobile-bottom-nav";
+import { MobileMoreSheet } from "@/components/dashboard/mobile-more-sheet";
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { Topbar } from "@/components/dashboard/topbar";
 import { AppShellSkeleton } from "@/components/ui/skeleton";
@@ -28,6 +30,7 @@ export function AppShell({ children }: AppShellProps) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [collapsed, setCollapsed] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -65,9 +68,16 @@ export function AppShell({ children }: AppShellProps) {
     };
   }, [router]);
 
+  useEffect(() => {
+    setMoreOpen(false);
+  }, [pathname]);
+
   const displayName = useMemo(() => {
+    if (user?.full_name?.trim()) {
+      return user.full_name.trim();
+    }
     if (!user?.email) {
-      return "Vivek Verma";
+      return "User";
     }
     const local = user.email.split("@")[0] ?? user.email;
     return local
@@ -97,22 +107,26 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <div className="flex min-h-svh bg-[#F3F8FB] text-[#2B2B38]">
-      <div className="sticky top-0 z-30 h-svh shrink-0 self-start">
+      <div className="sticky top-0 z-30 hidden h-svh shrink-0 self-start lg:block">
         <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((value) => !value)} />
       </div>
 
       <div className="flex min-h-svh min-w-0 flex-1 flex-col">
-        <div className="sticky top-0 z-20 border-b border-[#ECECF2]/70 bg-[#F3F8FB]/95 backdrop-blur">
+        <div className="sticky top-0 z-20 bg-[#F3F8FB] lg:border-b lg:border-[#ECECF2]/70 lg:bg-[#F3F8FB]/95 lg:backdrop-blur">
           <Topbar
             title={titleForPath(pathname)}
             userName={displayName || "Vivek Verma"}
             onLogout={() => void onLogout()}
           />
         </div>
-        <main className="flex-1 px-6 py-6 lg:px-8">
+        <main className="flex-1 px-4 pt-1 pb-24 sm:px-6 sm:pt-2 sm:pb-6 lg:px-8 lg:py-6">
           {error ? <p className="mb-4 text-[14px] text-[#d14343]">{error}</p> : null}
           {children}
         </main>
+        <Suspense fallback={null}>
+          <MobileBottomNav moreOpen={moreOpen} onMoreClick={() => setMoreOpen((open) => !open)} />
+        </Suspense>
+        <MobileMoreSheet open={moreOpen} onClose={() => setMoreOpen(false)} />
       </div>
     </div>
   );

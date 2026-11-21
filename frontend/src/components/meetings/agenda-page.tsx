@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { NavIcon } from "@/components/dashboard/nav-icons";
 import { MeetingListCard } from "@/components/meetings/meeting-list-card";
 import { ModalShell } from "@/components/meetings/modal-shell";
@@ -45,7 +46,9 @@ function toLocalDateTimeInput(iso?: string) {
 }
 
 export function AgendaPage() {
-  const [tab, setTab] = useState<"tasks" | "reminders">("tasks");
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get("tab") === "reminders" ? "reminders" : "tasks";
+  const [tab, setTab] = useState<"tasks" | "reminders">(initialTab);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [reminders, setReminders] = useState<Reminder[]>([]);
   const [loading, setLoading] = useState(true);
@@ -80,6 +83,23 @@ export function AgendaPage() {
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    const nextTab = searchParams.get("tab");
+    if (nextTab === "reminders" || nextTab === "tasks") {
+      setTab(nextTab);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (searchParams.get("view") !== "meetings") {
+      return;
+    }
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById("meetings")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [searchParams, loading]);
 
   const todayLabel = useMemo(
     () =>
@@ -253,7 +273,7 @@ export function AgendaPage() {
           </div>
         ) : tab === "tasks" ? (
           <div className="mt-4 overflow-hidden rounded-[12px] border border-[#EEF0F5]">
-            <div className="grid grid-cols-[1.4fr_0.7fr_0.8fr] bg-[#F7F8FC] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8A9A]">
+            <div className="hidden grid-cols-[1.4fr_0.7fr_0.8fr] bg-[#F7F8FC] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8A9A] sm:grid">
               <span>Task name</span>
               <span>Due date</span>
               <span>Actions</span>
@@ -265,12 +285,17 @@ export function AgendaPage() {
               {tasks.map((task) => (
                 <li
                   key={task.id}
-                  className="grid grid-cols-[1.4fr_0.7fr_0.8fr] items-center border-t border-[#EEF0F5] px-4 py-3"
+                  className="flex flex-col gap-3 border-t border-[#EEF0F5] px-4 py-3 sm:grid sm:grid-cols-[1.4fr_0.7fr_0.8fr] sm:items-center sm:gap-0"
                 >
-                  <span className={`text-[14px] font-medium ${task.done ? "text-[#8A8A9A] line-through" : "text-[#2B2B38]"}`}>
-                    {task.title}
-                  </span>
-                  <span className="text-[13px] text-[#8A8A9A]">{formatDueLabel(task.due_date)}</span>
+                  <div className="min-w-0">
+                    <span className={`block text-[14px] font-medium ${task.done ? "text-[#8A8A9A] line-through" : "text-[#2B2B38]"}`}>
+                      {task.title}
+                    </span>
+                    <span className="mt-1 block text-[12px] text-[#8A8A9A] sm:hidden">
+                      Due {formatDueLabel(task.due_date)}
+                    </span>
+                  </div>
+                  <span className="hidden text-[13px] text-[#8A8A9A] sm:block">{formatDueLabel(task.due_date)}</span>
                   <div className="flex items-center gap-2">
                     <Tooltip label={task.done ? "Mark incomplete" : "Mark complete"}>
                       <button
@@ -313,7 +338,7 @@ export function AgendaPage() {
           </div>
         ) : (
           <div className="mt-4 overflow-hidden rounded-[12px] border border-[#EEF0F5]">
-            <div className="grid grid-cols-[1.3fr_1fr_0.7fr] bg-[#F7F8FC] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8A9A]">
+            <div className="hidden grid-cols-[1.3fr_1fr_0.7fr] bg-[#F7F8FC] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8A9A] sm:grid">
               <span>Reminder</span>
               <span>When</span>
               <span>Actions</span>
@@ -325,13 +350,21 @@ export function AgendaPage() {
               {reminders.map((reminder) => (
                 <li
                   key={reminder.id}
-                  className="grid grid-cols-[1.3fr_1fr_0.7fr] items-center border-t border-[#EEF0F5] px-4 py-3"
+                  className="flex flex-col gap-3 border-t border-[#EEF0F5] px-4 py-3 sm:grid sm:grid-cols-[1.3fr_1fr_0.7fr] sm:items-center sm:gap-0"
                 >
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-[14px] font-medium text-[#2B2B38]">{reminder.title}</p>
                     {reminder.note ? <p className="mt-1 text-[12px] text-[#8A8A9A]">{reminder.note}</p> : null}
+                    <p className="mt-1 text-[12px] text-[#8A8A9A] sm:hidden">
+                      {new Date(reminder.remind_at).toLocaleString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
                   </div>
-                  <span className="text-[13px] text-[#8A8A9A]">
+                  <span className="hidden text-[13px] text-[#8A8A9A] sm:block">
                     {new Date(reminder.remind_at).toLocaleString("en-GB", {
                       day: "2-digit",
                       month: "short",
@@ -368,13 +401,15 @@ export function AgendaPage() {
         )}
       </section>
 
-      <MeetingListCard
-        title="Meetings Scheduled"
-        showSeeAll={false}
-        showFab={false}
-        showAddPerson
-        className="min-h-[560px]"
-      />
+      <div id="meetings" className="scroll-mt-24">
+        <MeetingListCard
+          title="Meetings Scheduled"
+          showSeeAll={false}
+          showFab={false}
+          showAddPerson
+          className="min-h-[360px] sm:min-h-[560px]"
+        />
+      </div>
 
       {taskModalOpen ? (
         <ModalShell

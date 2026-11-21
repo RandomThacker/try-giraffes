@@ -26,12 +26,12 @@ export function MarkPresent() {
 
   return (
     <main className="relative min-h-svh overflow-hidden bg-[radial-gradient(ellipse_at_center,#ffffff_0%,#f4f4fe_46%,#e7e8fb_100%)]">
-      <div className="relative z-20 mx-auto flex min-h-svh w-full max-w-5xl flex-col items-center px-6 pt-[10vh]">
+      <div className="relative z-20 mx-auto flex min-h-svh w-full max-w-5xl flex-col items-center px-4 pt-[8vh] sm:px-6 sm:pt-[10vh]">
         <Logo tone="brand" layout="stacked" />
-        <h1 className="mt-14 max-w-[820px] text-center text-[26px] font-medium leading-snug tracking-tight text-[#1d1d1d] sm:mt-16 sm:text-[32px]">
+        <h1 className="mt-10 max-w-[820px] text-center text-[22px] font-medium leading-snug tracking-tight text-[#1d1d1d] sm:mt-16 sm:text-[32px]">
           Would you like to mark yourself Present for today?
         </h1>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <div className="mt-6 flex w-full max-w-md flex-col items-stretch gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
           <Button
             type="button"
             className="h-11 px-5"

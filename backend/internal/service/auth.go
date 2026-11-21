@@ -38,10 +38,11 @@ type AuthResult struct {
 }
 
 type UserView struct {
-	ID      string `json:"id"`
-	Email   string `json:"email"`
-	AMCCode string `json:"amc_code"`
-	HasPIN  bool   `json:"has_pin"`
+	ID       string `json:"id"`
+	Email    string `json:"email"`
+	FullName string `json:"full_name"`
+	AMCCode  string `json:"amc_code"`
+	HasPIN   bool   `json:"has_pin"`
 }
 
 func NewAuthService(st *store.Store, cfg config.Config) *AuthService {
@@ -56,10 +57,14 @@ func (s *AuthService) ListAMCs(ctx context.Context) ([]domain.AMC, error) {
 	return s.store.ListAMCs(ctx)
 }
 
-func (s *AuthService) Signup(ctx context.Context, email, password, amcCode string) (AuthResult, error) {
+func (s *AuthService) Signup(ctx context.Context, email, fullName, password, amcCode string) (AuthResult, error) {
 	email, password, amcCode, err := normalizeCredentials(email, password, amcCode)
 	if err != nil {
 		return AuthResult{}, err
+	}
+	fullName = strings.TrimSpace(fullName)
+	if fullName == "" {
+		return AuthResult{}, fmt.Errorf("%w: full name is required", ErrValidation)
 	}
 	if len(password) < 8 {
 		return AuthResult{}, fmt.Errorf("%w: password must be at least 8 characters", ErrValidation)
@@ -78,7 +83,7 @@ func (s *AuthService) Signup(ctx context.Context, email, password, amcCode strin
 		return AuthResult{}, err
 	}
 
-	user, err := s.store.CreateUser(ctx, email, passwordHash, amc.ID)
+	user, err := s.store.CreateUser(ctx, email, fullName, passwordHash, amc.ID)
 	if errors.Is(err, store.ErrConflict) {
 		return AuthResult{}, ErrEmailTaken
 	}
@@ -214,10 +219,11 @@ func (s *AuthService) nextStep(ctx context.Context, user domain.User) (string, e
 
 func ToUserView(user domain.User) UserView {
 	return UserView{
-		ID:      user.ID.String(),
-		Email:   user.Email,
-		AMCCode: user.AMCCode,
-		HasPIN:  user.HasPIN(),
+		ID:       user.ID.String(),
+		Email:    user.Email,
+		FullName: user.FullName,
+		AMCCode:  user.AMCCode,
+		HasPIN:   user.HasPIN(),
 	}
 }
 

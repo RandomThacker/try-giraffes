@@ -13,6 +13,7 @@ export function SignupForm() {
   const router = useRouter();
   const [amcOptions, setAmcOptions] = useState<SelectOption[]>([]);
   const [amc, setAmc] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +45,12 @@ export function SignupForm() {
     setError(null);
     setSubmitting(true);
     try {
-      const result = await signup({ email, password, amc_code: amc });
+      const result = await signup({
+        email,
+        full_name: fullName.trim(),
+        password,
+        amc_code: amc,
+      });
       router.push(routeForNext(result.next));
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Sign up failed.");
@@ -62,6 +68,13 @@ export function SignupForm() {
 
       <div className="mt-7 flex flex-col gap-5">
         <SelectField label="Select AMC" name="amc" value={amc} options={amcOptions} onChange={setAmc} />
+        <TextField
+          label="Full name"
+          name="full_name"
+          autoComplete="name"
+          value={fullName}
+          onChange={setFullName}
+        />
         <TextField
           label="Email"
           name="email"

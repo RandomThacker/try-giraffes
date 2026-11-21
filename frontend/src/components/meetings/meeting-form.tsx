@@ -176,20 +176,20 @@ export function MeetingForm({ mode }: MeetingFormProps) {
 
   return (
     <div className="rounded-[18px] bg-white p-5 shadow-[0_8px_28px_rgba(45,50,90,0.06)] sm:p-7">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <button
           type="button"
           onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-[20px] font-semibold text-[#666CFF]"
+          className="inline-flex items-center gap-2 text-left text-[18px] font-semibold text-[#666CFF] sm:text-[20px]"
         >
-          <NavIcon name="arrow-left" className="size-5" />
+          <NavIcon name="arrow-left" className="size-5 shrink-0" />
           {pageTitle}
         </button>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => router.push("/agenda/groups")}
-            className="rounded-[10px] bg-[#EEF0FF] px-4 py-2.5 text-[14px] font-medium text-[#666CFF]"
+            className="rounded-[10px] bg-[#EEF0FF] px-3.5 py-2.5 text-[13px] font-medium text-[#666CFF] sm:px-4 sm:text-[14px]"
           >
             View group members
           </button>
@@ -197,7 +197,7 @@ export function MeetingForm({ mode }: MeetingFormProps) {
             type="button"
             disabled={submitting || uploading}
             onClick={() => void onSubmit()}
-            className="rounded-[10px] bg-[#666CFF] px-4 py-2.5 text-[14px] font-medium text-white disabled:opacity-60"
+            className="rounded-[10px] bg-[#666CFF] px-3.5 py-2.5 text-[13px] font-medium text-white disabled:opacity-60 sm:px-4 sm:text-[14px]"
           >
             {submitting ? "Saving..." : primaryLabel}
           </button>

@@ -5,6 +5,7 @@ export type Health = {
 export type User = {
   id: string;
   email: string;
+  full_name: string;
   amc_code: string;
   has_pin: boolean;
 };
@@ -86,7 +87,7 @@ export function listAmcs() {
   return apiFetch<{ amcs: AMC[] }>("/api/v1/amcs");
 }
 
-export function signup(input: { email: string; password: string; amc_code: string }) {
+export function signup(input: { email: string; full_name: string; password: string; amc_code: string }) {
   return apiFetch<AuthPayload>("/api/v1/auth/signup", {
     method: "POST",
     body: JSON.stringify(input),

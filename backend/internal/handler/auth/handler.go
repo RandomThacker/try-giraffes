@@ -33,6 +33,7 @@ func Register(rg *gin.RouterGroup, h *Handler) {
 
 type credentialsRequest struct {
 	Email    string `json:"email"`
+	FullName string `json:"full_name"`
 	Password string `json:"password"`
 	AMCCode  string `json:"amc_code"`
 }
@@ -71,7 +72,7 @@ func (h *Handler) signup(c *gin.Context) {
 		return
 	}
 
-	result, err := h.auth.Signup(c.Request.Context(), req.Email, req.Password, req.AMCCode)
+	result, err := h.auth.Signup(c.Request.Context(), req.Email, req.FullName, req.Password, req.AMCCode)
 	if err != nil {
 		writeAuthError(c, err)
 		return

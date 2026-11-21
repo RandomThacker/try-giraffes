@@ -60,14 +60,15 @@ func (s *Store) FindAMCByCode(ctx context.Context, code string) (domain.AMC, err
 	return item, nil
 }
 
-func (s *Store) CreateUser(ctx context.Context, email, passwordHash string, amcID uuid.UUID) (domain.User, error) {
+func (s *Store) CreateUser(ctx context.Context, email, fullName, passwordHash string, amcID uuid.UUID) (domain.User, error) {
 	email = strings.ToLower(strings.TrimSpace(email))
+	fullName = strings.TrimSpace(fullName)
 	var user domain.User
 	err := s.db.QueryRowContext(ctx, `
-		INSERT INTO users (email, password_hash, amc_id)
-		VALUES ($1, $2, $3)
+		INSERT INTO users (email, full_name, password_hash, amc_id)
+		VALUES ($1, $2, $3, $4)
 		RETURNING id, email, COALESCE(full_name, ''), password_hash, pin_hash, amc_id, created_at, updated_at
-	`, email, passwordHash, amcID).Scan(
+	`, email, fullName, passwordHash, amcID).Scan(
 		&user.ID, &user.Email, &user.FullName, &user.PasswordHash, &user.PinHash, &user.AMCID, &user.CreatedAt, &user.UpdatedAt,
 	)
 	if err != nil {

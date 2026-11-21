@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSerwist } from "@serwist/turbopack";
 
 const apiInternalUrl = process.env.API_INTERNAL_URL ?? "http://localhost:8080";
 
@@ -15,6 +16,7 @@ const nextConfig: NextConfig = {
     ];
   },
   turbopack: {
+    root: __dirname,
     rules: {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],
@@ -24,4 +26,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSerwist(nextConfig);

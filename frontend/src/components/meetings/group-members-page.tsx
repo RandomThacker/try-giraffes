@@ -121,7 +121,7 @@ export function GroupMembersPage() {
         </div>
       ) : (
         <div className="overflow-hidden rounded-[12px] border border-[#EEF0F5]">
-          <div className="grid grid-cols-[1.4fr_0.7fr_1fr_0.4fr] bg-[#F7F8FC] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8A9A]">
+          <div className="hidden grid-cols-[1.4fr_0.7fr_1fr_0.4fr] bg-[#F7F8FC] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8A9A] md:grid">
             <span>Group name</span>
             <span>Size</span>
             <span>Members</span>
@@ -134,32 +134,39 @@ export function GroupMembersPage() {
             {sorted.map((group) => (
               <li
                 key={group.id}
-                className="grid grid-cols-[1.4fr_0.7fr_1fr_0.4fr] items-center border-t border-[#EEF0F5] px-4 py-3"
+                className="flex flex-col gap-3 border-t border-[#EEF0F5] px-4 py-3 md:grid md:grid-cols-[1.4fr_0.7fr_1fr_0.4fr] md:items-center md:gap-0"
               >
-                <span className="text-[14px] font-medium text-[#2B2B38]">{group.name}</span>
-                <span className="text-[13px] text-[#8A8A9A]">{group.member_count} members</span>
-                <div className="flex items-center">
-                  {group.member_labels.slice(0, 4).map((label, index) => (
-                    <span
-                      key={`${group.id}-${label}`}
-                      title={label}
-                      className="inline-flex size-8 items-center justify-center rounded-full border-2 border-white bg-[#EEF0FF] text-[10px] font-semibold text-[#666CFF]"
-                      style={{ marginLeft: index === 0 ? 0 : -8 }}
-                    >
-                      {initials(label)}
-                    </span>
-                  ))}
+                <div className="min-w-0">
+                  <span className="block text-[14px] font-medium text-[#2B2B38]">{group.name}</span>
+                  <span className="mt-1 block text-[12px] text-[#8A8A9A] md:hidden">
+                    {group.member_count} members
+                  </span>
                 </div>
-                <Tooltip label={`Delete ${group.name}`}>
-                  <button
-                    type="button"
-                    aria-label={`Delete ${group.name}`}
-                    onClick={() => void onDelete(group.id)}
-                    className="inline-flex size-8 items-center justify-center rounded-[8px] bg-[#FDECEC] text-[#D14343]"
-                  >
-                    <NavIcon name="close" className="size-3.5" />
-                  </button>
-                </Tooltip>
+                <span className="hidden text-[13px] text-[#8A8A9A] md:block">{group.member_count} members</span>
+                <div className="flex items-center justify-between gap-3 md:contents">
+                  <div className="flex items-center">
+                    {group.member_labels.slice(0, 4).map((label, index) => (
+                      <span
+                        key={`${group.id}-${label}`}
+                        title={label}
+                        className="inline-flex size-8 items-center justify-center rounded-full border-2 border-white bg-[#EEF0FF] text-[10px] font-semibold text-[#666CFF]"
+                        style={{ marginLeft: index === 0 ? 0 : -8 }}
+                      >
+                        {initials(label)}
+                      </span>
+                    ))}
+                  </div>
+                  <Tooltip label={`Delete ${group.name}`}>
+                    <button
+                      type="button"
+                      aria-label={`Delete ${group.name}`}
+                      onClick={() => void onDelete(group.id)}
+                      className="inline-flex size-8 items-center justify-center rounded-[8px] bg-[#FDECEC] text-[#D14343]"
+                    >
+                      <NavIcon name="close" className="size-3.5" />
+                    </button>
+                  </Tooltip>
+                </div>
               </li>
             ))}
           </ul>

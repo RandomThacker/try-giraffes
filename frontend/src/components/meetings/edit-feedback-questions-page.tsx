@@ -96,13 +96,13 @@ export function EditFeedbackQuestionsPage() {
 
   return (
     <div className="rounded-[18px] bg-white p-5 shadow-[0_8px_28px_rgba(45,50,90,0.06)] sm:p-7">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <button
           type="button"
           onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-[20px] font-semibold text-[#666CFF]"
+          className="inline-flex items-center gap-2 text-left text-[18px] font-semibold text-[#666CFF] sm:text-[20px]"
         >
-          <NavIcon name="arrow-left" className="size-5" />
+          <NavIcon name="arrow-left" className="size-5 shrink-0" />
           Edit Questions
         </button>
         <button

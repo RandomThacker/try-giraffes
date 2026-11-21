@@ -10,6 +10,10 @@ import { Tooltip } from "@/components/ui/tooltip";
 type SidebarProps = {
   collapsed: boolean;
   onToggle: () => void;
+  onNavigate?: () => void;
+  className?: string;
+  hideBrand?: boolean;
+  hideCollapse?: boolean;
 };
 
 const hrefById: Record<string, string> = {
@@ -17,28 +21,37 @@ const hrefById: Record<string, string> = {
   agenda: "/agenda",
 };
 
-export function Sidebar({ collapsed, onToggle }: SidebarProps) {
+export function Sidebar({
+  collapsed,
+  onToggle,
+  onNavigate,
+  className = "",
+  hideBrand = false,
+  hideCollapse = false,
+}: SidebarProps) {
   const pathname = usePathname();
 
   return (
     <aside
       className={`flex h-full flex-col border-r border-[#ECECF2] bg-[#F7F7F9] transition-[width] duration-200 ${
         collapsed ? "w-[76px]" : "w-[248px]"
-      }`}
+      } ${className}`}
     >
-      <div className={`flex items-center gap-3 px-4 py-5 ${collapsed ? "justify-center" : ""}`}>
-        {collapsed ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src="/images/logo-mark-brand.svg" alt="Try Giraffes" width={40} height={22} className="h-6 w-auto" />
-        ) : (
-          <div className="min-w-0">
-            <Logo tone="brand" className="h-7 w-auto" />
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#9A9AA8]">
-              Asset Management
-            </p>
-          </div>
-        )}
-      </div>
+      {hideBrand ? null : (
+        <div className={`flex items-center gap-3 px-4 py-5 ${collapsed ? "justify-center" : ""}`}>
+          {collapsed ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src="/images/logo-mark-brand.svg" alt="Try Giraffes" width={40} height={22} className="h-6 w-auto" />
+          ) : (
+            <div className="min-w-0">
+              <Logo tone="brand" className="h-7 w-auto" />
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#9A9AA8]">
+                Asset Management
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       <nav className="flex-1 overflow-y-auto px-3 pb-4">
         {navSections.map((section) => (
@@ -72,7 +85,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 );
 
                 const control = href ? (
-                  <Link href={href} className={className}>
+                  <Link href={href} className={className} onClick={() => onNavigate?.()}>
                     {content}
                   </Link>
                 ) : (
@@ -92,21 +105,23 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         ))}
       </nav>
 
-      <div className="border-t border-[#ECECF2] p-3">
-        <Tooltip label={collapsed ? "Expand sidebar" : "Collapse sidebar"} side="top">
-          <button
-            type="button"
-            onClick={onToggle}
-            className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14px] text-[#6E6E80] hover:bg-white ${
-              collapsed ? "justify-center px-0" : ""
-            }`}
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            <NavIcon name="panel" className="size-[18px]" />
-            {!collapsed ? <span>Collapse</span> : null}
-          </button>
-        </Tooltip>
-      </div>
+      {hideCollapse ? null : (
+        <div className="border-t border-[#ECECF2] p-3">
+          <Tooltip label={collapsed ? "Expand sidebar" : "Collapse sidebar"} side="top">
+            <button
+              type="button"
+              onClick={onToggle}
+              className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-[14px] text-[#6E6E80] hover:bg-white ${
+                collapsed ? "justify-center px-0" : ""
+              }`}
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              <NavIcon name="panel" className="size-[18px]" />
+              {!collapsed ? <span>Collapse</span> : null}
+            </button>
+          </Tooltip>
+        </div>
+      )}
     </aside>
   );
 }
